@@ -3,6 +3,8 @@ package com.node_coyote.bakerscorner.utility;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,17 +53,29 @@ public final class BakeJSONUtility {
                 JSONArray recipeIngredients = recipe.getJSONArray(INGREDIENTS);
 
                 for (int j = 0; j < recipeIngredients.length(); j++){
-                    JSONObject steps = recipeIngredients.getJSONObject(i);
-                    int quantity = steps.getInt(QUANTITY);
-                    String measure = steps.getString(MEASURE);
-                    String ingredient = steps.getString(INGREDIENT);
+                    JSONObject ingredients = recipeIngredients.getJSONObject(i);
+                    int quantity = ingredients.getInt(QUANTITY);
+                    String measure = ingredients.getString(MEASURE);
+                    String ingredient = ingredients.getString(INGREDIENT);
                 }
 
                 JSONArray recipeSteps = recipe.getJSONArray(STEPS);
-                // TODO for xxxxx
+
+                for (int k = 0; k < recipeSteps.length(); k++ ) {
+                    JSONObject steps = recipeSteps.getJSONObject(k);
+                    int stepId = steps.getInt(STEP_ID);
+                    String shortdescription = steps.getString(SHORT_DESCRIPTION);
+                    String description = steps.getString(DESCRIPTION);
+                    String videoURL = steps.getString(VIDEO_URL);
+                    String thumbnailURL = steps.getString(THUMBNAIL_URL);
+                }
 
                 int recipeServings = recipe.getInt(SERVINGS);
                 String recipeImage = recipe.getString(IMAGE);
+
+                ContentValues values = new ContentValues();
+                values.put(BakeEntry.COLUMN_RECIPE_ID, recipeId);
+                values.put(BakeEntry.COLUMN_RECIPE_NAME, recipeName);
 
             }
         } catch (JSONException e){

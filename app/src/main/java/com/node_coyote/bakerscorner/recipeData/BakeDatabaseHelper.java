@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner.data;
+package com.node_coyote.bakerscorner.recipeData;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
