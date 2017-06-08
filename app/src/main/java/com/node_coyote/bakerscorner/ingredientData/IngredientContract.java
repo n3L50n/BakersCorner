@@ -11,14 +11,14 @@ import android.provider.BaseColumns;
 public class IngredientContract {
 
         public IngredientContract(){}
-    
-        public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.data";
+     
+        public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.ingredientData";
 
         public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
         public static final String PATH_INGREDIENT = "ingredient";
 
-        public static final class BakeEntry implements BaseColumns {
+        public static final class IngredientEntry implements BaseColumns {
 
             public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                     .appendPath(PATH_INGREDIENT)
@@ -44,5 +44,13 @@ public class IngredientContract {
              * Unique identifier for a set of ingredients (row) in the database
              */
             public static final String _ID = BaseColumns._ID;
+        
+            public static final String COLUMN_INGREDIENT_ID = "ingredients_id";
+
+            public static final String COLUMN_QUANTITY = "quantity";
+
+            public static final String COLUMN_MEASURE = "measure";
+
+            public static final String COLUMN_INGREDIENT = "ingredient";
         }
 }

@@ -12,9 +12,6 @@ import java.util.Scanner;
 
 public class BakeNetworkUtility {
 
-    // The url holding Miriam's recipe data.
-    private static final String RECIPE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
-
     /**
      *  A helper method to connect to Miriam's recipe data.
      * @param url The url of Miriam's recipes.
@@ -24,7 +21,7 @@ public class BakeNetworkUtility {
     public static String getHttpResponse(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
-            InputStream inputStream =urlConnection.getInputStream();
+            InputStream inputStream = urlConnection.getInputStream();
 
             Scanner scanner = new Scanner(inputStream);
             scanner.useDelimiter("\\A");
@@ -38,5 +35,4 @@ public class BakeNetworkUtility {
             urlConnection.disconnect();
         }
     }
-
 }

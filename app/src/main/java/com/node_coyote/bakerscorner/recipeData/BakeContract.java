@@ -53,5 +53,25 @@ public class BakeContract {
          *
          */
         public static final String COLUMN_RECIPE_NAME = "name";
+
+        /**
+         * Type: INTEGER
+         */
+        public static final String COLUMN_RECIPE_INGREDIENTS_ID = "ingredients";
+
+        /**
+         * Type: INTEGER
+         */
+        public static final String COLUMN_RECIPE_STEPS_ID = "steps_recipe_id";
+
+        /**
+         * Type: INTEGER
+         */
+        public static final String COLUMN_RECIPE_SERVINGS = "servings";
+
+        /**
+         * Type: TEXT
+         */
+        public static final String COLUMN_RECIPE_IMAGE = "image";
     }
 }
