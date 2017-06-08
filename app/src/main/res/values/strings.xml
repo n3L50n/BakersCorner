@@ -1,3 +1,12 @@
 <resources>
+
     <string name="app_name">BakersCorner</string>
+    <string name="recipe_image_content_description">An image of the food item to be made in the recipe.</string>
+    <string name="recipe_title_tool_text">Nutella</string>
+    <string name="recipe_ingredients_button_text">Ingredients</string>
+    <string name="recipe_steps_button_text">Let\'s Make it!</string>
+    <string name="recipe_servings_text">Servings:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

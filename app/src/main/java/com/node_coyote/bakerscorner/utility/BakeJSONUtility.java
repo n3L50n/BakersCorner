@@ -1,6 +1,5 @@
 package com.node_coyote.bakerscorner.utility;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 
