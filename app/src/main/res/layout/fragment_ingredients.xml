@@ -4,10 +4,19 @@
     android:layout_height="match_parent"
     tools:context="com.node_coyote.bakerscorner.viewFragments.IngredientsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/quantity_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/measure_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/ingredient_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

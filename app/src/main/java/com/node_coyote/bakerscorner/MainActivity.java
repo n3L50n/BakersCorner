@@ -1,7 +1,5 @@
 package com.node_coyote.bakerscorner;
 
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +7,6 @@ import android.os.Bundle;
 import com.node_coyote.bakerscorner.viewFragments.RecipePagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
-
 
     /**
      * Theme ideas.
@@ -29,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager recipePager = (ViewPager) findViewById(R.id.recipe_view_pager);
         RecipePagerAdapter recipeAdapter = new RecipePagerAdapter(this, getSupportFragmentManager());
         recipePager.setAdapter(recipeAdapter);
+
         // Create recyclerView onClick ingredients and steps
         // Call background thread.
     }

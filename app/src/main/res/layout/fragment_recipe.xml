@@ -31,25 +31,28 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/ingredients_text_view"
+        <Button
+            android:id="@+id/ingredients_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:background="@color/transparent"
             android:text="@string/recipe_ingredients_button_text" />
 
-        <TextView
+        <Button
+            android:id="@+id/steps_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:background="@color/transparent"
             android:text="@string/recipe_steps_button_text" />
 
     </LinearLayout>
 
     <TextView
-        android:layout_gravity="center"
-        android:text="@string/recipe_servings_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/recipe_servings_text" />
 
 </LinearLayout>
