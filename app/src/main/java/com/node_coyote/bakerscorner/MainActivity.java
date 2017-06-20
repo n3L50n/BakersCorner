@@ -3,8 +3,8 @@ package com.node_coyote.bakerscorner;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.node_coyote.bakerscorner.viewFragments.RecipePagerAdapter;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,9 +23,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // TODO Butterknife
-        ViewPager recipePager = (ViewPager) findViewById(R.id.recipe_view_pager);
-        RecipePagerAdapter recipeAdapter = new RecipePagerAdapter(this, getSupportFragmentManager());
-        recipePager.setAdapter(recipeAdapter);
+        RecipeAdapter mRecipeAdapter = new RecipeAdapter();
+        RecyclerView recipeRecycler = (RecyclerView) findViewById(R.id.recipe_recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        recipeRecycler.setLayoutManager(linearLayoutManager);
+        recipeRecycler.setAdapter(mRecipeAdapter);
 
         // Create recyclerView onClick ingredients and steps
         // Call background thread.

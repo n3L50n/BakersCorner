@@ -1,41 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".viewFragments.RecipeFragment">
-
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/recipe_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="16dp"
         android:contentDescription="@string/recipe_image_content_description"
         android:src="@drawable/recipe_image_circle" />
-
-    <TextView
-        android:id="@+id/recipe_title_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:gravity="center"
-        android:textColor="@android:color/black"
-        android:textSize="26sp"
-        tools:text="@string/recipe_title_tool_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/recipe_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="26sp"
+            android:text="Nutella" />
 
         <Button
             android:id="@+id/ingredients_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:background="@color/transparent"
             android:text="@string/recipe_ingredients_button_text" />
 
@@ -43,16 +39,15 @@
             android:id="@+id/steps_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:background="@color/transparent"
             android:text="@string/recipe_steps_button_text" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe_servings_text" />
+
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/recipe_servings_text" />
 
 </LinearLayout>
