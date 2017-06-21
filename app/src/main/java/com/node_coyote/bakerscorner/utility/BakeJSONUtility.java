@@ -2,6 +2,7 @@ package com.node_coyote.bakerscorner.utility;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
 import com.node_coyote.bakerscorner.ingredientData.IngredientContract.IngredientEntry;
@@ -16,6 +17,10 @@ import org.json.JSONObject;
  */
 
 public final class BakeJSONUtility {
+
+
+    // A tag for log messages.
+    public static final String LOG_TAG = BakeJSONUtility.class.getSimpleName();
 
     public static ContentValues[] getRecipeStringsFromJSON(Context context, String recipeJSONString) throws JSONException {
 
@@ -54,47 +59,49 @@ public final class BakeJSONUtility {
                 String recipeName = recipe.getString(NAME);
                 JSONArray recipeIngredients = recipe.getJSONArray(INGREDIENTS);
 
-                int ingredientId = recipeId + Integer.parseInt(IngredientEntry._ID);
+                int ingredientItemCounter = 0;
+                int ingredientId = recipeId + ingredientItemCounter;
+                ContentValues ingredientValues = new ContentValues();
+                ContentValues[] ingredientsValuesArray = new ContentValues[recipeIngredients.length()];
 
                 for (int j = 0; j < recipeIngredients.length(); j++){
                     
                     JSONObject ingredients = recipeIngredients.getJSONObject(i);
-                    
-                    ContentValues ingredientValues = new ContentValues();
-                    ContentValues[] ingredientsValuesArray = new ContentValues[recipeIngredients.length()];
 
                     int quantity = ingredients.getInt(QUANTITY);
                     String measure = ingredients.getString(MEASURE);
                     String ingredient = ingredients.getString(INGREDIENT);
 
+                    ingredientItemCounter++;
                     ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT_ID, ingredientId);
                     ingredientValues.put(IngredientEntry.COLUMN_QUANTITY, quantity);  
                     ingredientValues.put(IngredientEntry.COLUMN_MEASURE, measure);
                     ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT, ingredient);
 
                     ingredientsValuesArray[j] = ingredientValues;
-
-                    context.getContentResolver().bulkInsert(IngredientEntry.CONTENT_URI, ingredientsValuesArray);
                 }
+
+                context.getContentResolver().bulkInsert(IngredientEntry.CONTENT_URI, ingredientsValuesArray);
 
                 JSONArray recipeSteps = recipe.getJSONArray(STEPS);
 
-                int stepsRecipeId = recipeId + Integer.parseInt(StepEntry._ID);
+                int stepsItemCounter = 0;
+                int stepsRecipeId = recipeId + stepsItemCounter;
+
+                ContentValues stepValues = new ContentValues();
+                ContentValues[] stepValuesArray = new ContentValues[recipeSteps.length()];
 
                 for (int k = 0; k < recipeSteps.length(); k++ ) {
 
                     JSONObject steps = recipeSteps.getJSONObject(k);
-     
-                    ContentValues stepValues = new ContentValues();
-                    ContentValues[] stepValuesArray = new ContentValues[recipeSteps.length()];
 
                     int stepId = steps.getInt(STEP_ID);
                     String shortDescription = steps.getString(SHORT_DESCRIPTION);
                     String description = steps.getString(DESCRIPTION);
                     String videoURL = steps.getString(VIDEO_URL);
                     String thumbnailURL = steps.getString(THUMBNAIL_URL);
-                
-                    stepValues.put(StepEntry.COLUMN_STEP_ID, stepId); 
+
+                    stepValues.put(StepEntry.COLUMN_STEP_ID, stepId);
                     stepValues.put(StepEntry.COLUMN_SHORT_DESCRIPTION, shortDescription);
                     stepValues.put(StepEntry.COLUMN_DESCRIPTION, description);
                     stepValues.put(StepEntry.COLUMN_VIDEO_URL, videoURL); 
@@ -102,8 +109,9 @@ public final class BakeJSONUtility {
 
                     stepValuesArray[k] = stepValues;
 
-                    context.getContentResolver().bulkInsert(StepEntry.CONTENT_URI, stepValuesArray);
                 }
+
+                context.getContentResolver().bulkInsert(StepEntry.CONTENT_URI, stepValuesArray);
 
                 int recipeServings = recipe.getInt(SERVINGS);
                 String recipeImage = recipe.getString(IMAGE);
@@ -117,10 +125,9 @@ public final class BakeJSONUtility {
                 values.put(BakeEntry.COLUMN_RECIPE_IMAGE, recipeImage);
 
                 parsedRecipeValues[i] = values;
-
-                context.getContentResolver().bulkInsert(BakeEntry.CONTENT_URI, parsedRecipeValues);
-
             }
+            context.getContentResolver().bulkInsert(BakeEntry.CONTENT_URI, parsedRecipeValues);
+
         } catch (JSONException e){
             e.printStackTrace();
         }

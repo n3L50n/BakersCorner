@@ -1,6 +1,5 @@
 package com.node_coyote.bakerscorner;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         recipeRecycler.setLayoutManager(linearLayoutManager);
         recipeRecycler.setAdapter(mRecipeAdapter);
+
+        new FetchRecipeData(this).execute();
 
         // Create recyclerView onClick ingredients and steps
         // Call background thread.

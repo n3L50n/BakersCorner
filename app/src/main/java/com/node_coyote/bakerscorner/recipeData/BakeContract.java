@@ -10,11 +10,11 @@ import android.provider.BaseColumns;
 
 public class BakeContract {
     public BakeContract(){}
-    public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.data";
+    public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.recipeData";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-    public static final String PATH_RECIPE = "recipe";
+    public static final String PATH_RECIPE = "recipes";
 
     public static final class BakeEntry implements BaseColumns {
 
@@ -35,7 +35,7 @@ public class BakeContract {
         /**
          * The name of the database for recipes.
          */
-        public static final String TABLE_NAME = "recipe";
+        public static final String TABLE_NAME = "recipes";
 
         /**
          * Type: INTEGER
@@ -57,7 +57,7 @@ public class BakeContract {
         /**
          * Type: INTEGER
          */
-        public static final String COLUMN_RECIPE_INGREDIENTS_ID = "ingredients";
+        public static final String COLUMN_RECIPE_INGREDIENTS_ID = "ingredients_id";
 
         /**
          * Type: INTEGER

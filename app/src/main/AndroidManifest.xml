@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.node_coyote.bakerscorner">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +17,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:exported="false"
+            android:enabled="true"
+            android:authorities="com.node_coyote.bakerscorner.recipeData"
+            android:name=".recipeData.BakeProvider" />
+        
+        <provider
+            android:exported="false"
+            android:enabled="true"
+            android:authorities="com.node_coyote.bakerscorner.ingredientData"
+            android:name="com.node_coyote.bakerscorner.ingredientData.IngredientProvider" />
+
+        <provider
+            android:exported="false"
+            android:enabled="true"
+            android:authorities="com.node_coyote.bakerscorner.stepData"
+            android:name="com.node_coyote.bakerscorner.stepData.StepProvider" />
+
     </application>
 
 </manifest>
