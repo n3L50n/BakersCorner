@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner.recipeData;
+package com.node_coyote.bakerscorner.recipes;
 
 import android.content.ContentResolver;
 import android.net.Uri;
@@ -8,9 +8,9 @@ import android.provider.BaseColumns;
  * Created by node_coyote on 6/6/17.
  */
 
-public class BakeContract {
-    public BakeContract(){}
-    public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.recipeData";
+public class RecipeContract {
+    public RecipeContract(){}
+    public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.recipes";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 

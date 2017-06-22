@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".recipes.RecipeActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,25 +23,25 @@
         </activity>
 
         <provider
-            android:name=".recipeData.RecipeProvider"
-            android:authorities="com.node_coyote.bakerscorner.recipeData"
+            android:name=".recipes.RecipeProvider"
+            android:authorities="com.node_coyote.bakerscorner.recipes"
             android:enabled="true"
             android:exported="false" />
         <provider
-            android:name=".ingredientData.IngredientProvider"
-            android:authorities="com.node_coyote.bakerscorner.ingredientData"
+            android:name=".ingredients.IngredientProvider"
+            android:authorities="com.node_coyote.bakerscorner.ingredients"
             android:enabled="true"
             android:exported="false" />
         <provider
-            android:name=".stepData.StepProvider"
-            android:authorities="com.node_coyote.bakerscorner.stepData"
+            android:name=".steps.StepProvider"
+            android:authorities="com.node_coyote.bakerscorner.steps"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".RecipeDetailActivity">
+        <activity android:name=".recipes.RecipeDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".recipes.RecipeActivity" />
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner.ingredientData;
+package com.node_coyote.bakerscorner.ingredients;
 
 import android.content.ContentResolver;
 import android.net.Uri;

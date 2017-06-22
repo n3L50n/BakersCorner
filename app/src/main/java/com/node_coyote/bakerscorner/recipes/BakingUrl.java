@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner.recipeData;
+package com.node_coyote.bakerscorner.recipes;
 
 import java.net.MalformedURLException;
 import java.net.URL;

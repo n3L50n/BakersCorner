@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner;
+package com.node_coyote.bakerscorner.recipes;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -10,25 +10,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
-import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
-import com.node_coyote.bakerscorner.recipeData.BakingUrl;
-import com.node_coyote.bakerscorner.recipeData.RecipeDatabaseHelper;
+import com.node_coyote.bakerscorner.R;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
 import com.node_coyote.bakerscorner.utility.NetworkUtility;
-import com.node_coyote.bakerscorner.viewFragments.IngredientsFragment;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class RecipeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public static final String LOG_TAG = RecipeActivity.class.getSimpleName();
 
     /**
      * Theme ideas.
@@ -81,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     boolean checkforDatabase(){
         boolean empty = true;
-        RecipeDatabaseHelper helper = new RecipeDatabaseHelper(MainActivity.this);
+        RecipeDatabaseHelper helper = new RecipeDatabaseHelper(RecipeActivity.this);
         SQLiteDatabase database = helper.getReadableDatabase();
         String check = "SELECT COUNT(*) FROM recipes";
         Cursor cursor = database.rawQuery(check, null);
@@ -145,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             try {
                 String recipeJSONResponse = NetworkUtility.getHttpResponse(BakingUrl.getRecipeUrl());
-                mRecipeData = JSONUtility.getRecipeStringsFromJSON(MainActivity.this, recipeJSONResponse);
+                mRecipeData = JSONUtility.getRecipeStringsFromJSON(RecipeActivity.this, recipeJSONResponse);
                 Log.v(LOG_TAG, mRecipeData[2].toString());
                 return mRecipeData;
             } catch (Exception e) {

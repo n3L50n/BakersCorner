@@ -1,10 +1,10 @@
-package com.node_coyote.bakerscorner.recipeData;
+package com.node_coyote.bakerscorner.recipes;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
 
 /**
  * Created by node_coyote on 6/6/17.

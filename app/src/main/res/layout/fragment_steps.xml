@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.node_coyote.bakerscorner.viewFragments.StepsFragment">
+    tools:context="com.node_coyote.bakerscorner.steps.StepsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

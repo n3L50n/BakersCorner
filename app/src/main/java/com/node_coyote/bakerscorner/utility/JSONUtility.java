@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
-import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
-import com.node_coyote.bakerscorner.ingredientData.IngredientContract.IngredientEntry;
-import com.node_coyote.bakerscorner.stepData.StepContract.StepEntry;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
+import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
+import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;

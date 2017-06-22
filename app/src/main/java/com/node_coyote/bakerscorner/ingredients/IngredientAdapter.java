@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner;
+package com.node_coyote.bakerscorner.ingredients;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.node_coyote.bakerscorner.R;
 
 /**
  * Created by node_coyote on 6/8/17.

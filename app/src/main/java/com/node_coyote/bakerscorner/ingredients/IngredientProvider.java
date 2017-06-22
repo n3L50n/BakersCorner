@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner.stepData;
+package com.node_coyote.bakerscorner.ingredients;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -11,29 +11,37 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.node_coyote.bakerscorner.stepData.StepContract.StepEntry;
+import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
 
 /**
  * Created by node_coyote on 6/6/17.
  */
 
-public class StepProvider extends ContentProvider {
+public class IngredientProvider extends ContentProvider {
 
-    public static final String LOG_TAG = StepContract.StepEntry.class.getSimpleName();
+    // A tag for log messages.
+    public static final String LOG_TAG = IngredientContract.IngredientEntry.class.getSimpleName();
 
-    private static final int STEP = 69;
-    private static final int STEP_ID = 33;
+    // uri watcher code for the content uri for the ingredient database.
+    private static final int INGREDIENT = 42;
+
+    // uri watcher code for the content uri for a single ingredient in the ingredients database.
+    private static final int INGREDIENT_ID = 9;
+
+    // UriMatcher object to match a content uri to a code.
     private static final UriMatcher sMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    // The items to match with the uri matcher. Is it a ingredient, or all ingredients?
     static {
-        sMatcher.addURI(StepContract.CONTENT_AUTHORITY, StepContract.PATH_STEPS, STEP);
-        sMatcher.addURI(StepContract.CONTENT_AUTHORITY, StepContract.PATH_STEPS + "/#", STEP_ID);
+        sMatcher.addURI(IngredientContract.CONTENT_AUTHORITY, IngredientContract.PATH_INGREDIENT, INGREDIENT);
+        sMatcher.addURI(IngredientContract.CONTENT_AUTHORITY, IngredientContract.PATH_INGREDIENT + "/#", INGREDIENT_ID);
     }
 
-    private StepDatabaseHelper mHelper;
+    private IngredientDatabaseHelper mHelper;
 
     @Override
     public boolean onCreate() {
-        mHelper = new StepDatabaseHelper(getContext());
+        mHelper = new IngredientDatabaseHelper(getContext());
         return true;
     }
 
@@ -48,10 +56,10 @@ public class StepProvider extends ContentProvider {
     public String getType(@NonNull Uri uri) {
         final int match = sMatcher.match(uri);
         switch (match) {
-            case STEP:
-                return StepEntry.CONTENT_LIST_TYPE;
-            case STEP_ID:
-                return StepEntry.CONTENT_ITEM_TYPE;
+            case INGREDIENT:
+                return IngredientEntry.CONTENT_LIST_TYPE;
+            case INGREDIENT_ID:
+                return IngredientEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown uri" + uri + "with match" + match);
         }
@@ -64,12 +72,12 @@ public class StepProvider extends ContentProvider {
         final SQLiteDatabase database = mHelper.getWritableDatabase();
 
         switch (sMatcher.match(uri)) {
-            case STEP:
+            case INGREDIENT:
                 // bulkInsert
-            case STEP_ID:
+            case INGREDIENT_ID:
 
                 // insert new ingredients with given values
-                long id = database.insert(StepEntry.TABLE_NAME, null, values);
+                long id = database.insert(IngredientEntry.TABLE_NAME, null, values);
 
                 // Insertion fails if id is -1. Log it with error and return null
                 if (id == -1) {
@@ -90,12 +98,12 @@ public class StepProvider extends ContentProvider {
         final SQLiteDatabase database = mHelper.getWritableDatabase();
 
         switch (sMatcher.match(uri)) {
-            case STEP:
+            case INGREDIENT:
                 database.beginTransaction();
                 int rowsInserted = 0;
                 try {
                     for (ContentValues value : values) {
-                        long _id = database.insert(StepEntry.TABLE_NAME, null, value);
+                        long _id = database.insert(IngredientEntry.TABLE_NAME, null, value);
                         Log.v(LOG_TAG, String.valueOf(_id));
                         if (_id != -1) {
                             rowsInserted++;

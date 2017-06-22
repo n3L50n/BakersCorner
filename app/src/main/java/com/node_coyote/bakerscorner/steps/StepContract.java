@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner.stepData;
+package com.node_coyote.bakerscorner.steps;
 
 import android.content.ContentResolver;
 import android.net.Uri;

@@ -1,22 +1,18 @@
-package com.node_coyote.bakerscorner;
+package com.node_coyote.bakerscorner.recipes;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
-import com.node_coyote.bakerscorner.viewFragments.IngredientsFragment;
+import com.node_coyote.bakerscorner.R;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
 
 /**
  * Created by node_coyote on 6/20/17.

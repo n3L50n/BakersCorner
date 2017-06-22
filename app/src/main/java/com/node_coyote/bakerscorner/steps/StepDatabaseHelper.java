@@ -1,10 +1,10 @@
-package com.node_coyote.bakerscorner.stepData;
+package com.node_coyote.bakerscorner.steps;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.node_coyote.bakerscorner.stepData.StepContract.StepEntry;
+import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
 
 /**
  * Created by node_coyote on 6/6/17.
