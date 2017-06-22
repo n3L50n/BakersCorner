@@ -37,9 +37,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     public void onBindViewHolder(RecipeAdapterViewHolder holder, int position) {
         mCursor.moveToPosition(position);
         int columnRecipeNameIndex = mCursor.getColumnIndex(BakeEntry.COLUMN_RECIPE_NAME);
+        int columnServingsIndex = mCursor.getColumnIndex(BakeEntry.COLUMN_RECIPE_SERVINGS);
         String recipeName = mCursor.getString(columnRecipeNameIndex);
-        Log.v("YORT", recipeName);
+        int servingsValue = mCursor.getInt(columnServingsIndex);
+        String servings = mContext.getString(R.string.recipe_servings_text) + " " + String.valueOf(servingsValue);
         holder.mRecipeNameView.setText(recipeName);
+        holder.mServingsView.setText(servings);
     }
 
     @Override
@@ -62,10 +65,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     class RecipeAdapterViewHolder extends RecyclerView.ViewHolder {
 
         final TextView mRecipeNameView;
+        final TextView mServingsView;
 
         RecipeAdapterViewHolder(View itemView) {
             super(itemView);
             mRecipeNameView = (TextView) itemView.findViewById(R.id.recipe_title_view);
+            mServingsView = (TextView) itemView.findViewById(R.id.servings_view);
         }
     }
 }

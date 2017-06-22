@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // TODO Butterknife
         mRecipeAdapter = new RecipeAdapter(this);
         RecyclerView recipeRecycler = (RecyclerView) findViewById(R.id.recipe_recycler_view);
