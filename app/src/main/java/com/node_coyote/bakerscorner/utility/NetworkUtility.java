@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Created by node_coyote on 6/6/17.
  */
 
-public class BakeNetworkUtility {
+public class NetworkUtility {
 
     /**
      *  A helper method to connect to Miriam's recipe data.

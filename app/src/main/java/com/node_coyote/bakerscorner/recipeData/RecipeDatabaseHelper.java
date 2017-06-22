@@ -10,7 +10,7 @@ import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
  * Created by node_coyote on 6/6/17.
  */
 
-public class BakeDatabaseHelper extends SQLiteOpenHelper {
+public class RecipeDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "recipes";
 
@@ -26,7 +26,7 @@ public class BakeDatabaseHelper extends SQLiteOpenHelper {
             + BakeEntry.COLUMN_RECIPE_SERVINGS + " INTEGER, "
             + BakeEntry.COLUMN_RECIPE_IMAGE + " TEXT);";
 
-    public BakeDatabaseHelper(Context context) {
+    public RecipeDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

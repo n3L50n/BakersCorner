@@ -17,7 +17,7 @@ import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
  * Created by node_coyote on 6/6/17.
  */
 
-public class BakeProvider extends ContentProvider {
+public class RecipeProvider extends ContentProvider {
 
     // A tag for log messages.
     public static final String LOG_TAG = BakeContract.BakeEntry.class.getSimpleName();
@@ -37,11 +37,11 @@ public class BakeProvider extends ContentProvider {
         sMatcher.addURI(BakeContract.CONTENT_AUTHORITY, BakeContract.PATH_RECIPE + "/#", RECIPE_ID);
     }
 
-    private BakeDatabaseHelper mHelper;
+    private RecipeDatabaseHelper mHelper;
 
     @Override
     public boolean onCreate() {
-        mHelper = new BakeDatabaseHelper(getContext());
+        mHelper = new RecipeDatabaseHelper(getContext());
         return true;
     }
 
@@ -51,7 +51,7 @@ public class BakeProvider extends ContentProvider {
         // We need a readable database to look at.
         SQLiteDatabase database = mHelper.getReadableDatabase();
 
-        // We'll pack a cursor with schools for the roster.
+        // We'll pack a cursor with recipes for the roster.
         Cursor cursor;
 
         // Match uri to code.

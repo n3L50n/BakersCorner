@@ -2,9 +2,13 @@ package com.node_coyote.bakerscorner;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +18,9 @@ import android.util.Log;
 
 import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
 import com.node_coyote.bakerscorner.recipeData.BakingUrl;
-import com.node_coyote.bakerscorner.utility.BakeJSONUtility;
-import com.node_coyote.bakerscorner.utility.BakeNetworkUtility;
+import com.node_coyote.bakerscorner.recipeData.RecipeDatabaseHelper;
+import com.node_coyote.bakerscorner.utility.JSONUtility;
+import com.node_coyote.bakerscorner.utility.NetworkUtility;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
-        new FetchRecipeData().execute();
+
         // TODO Butterknife
         mRecipeAdapter = new RecipeAdapter(this);
         RecyclerView recipeRecycler = (RecyclerView) findViewById(R.id.recipe_recycler_view);
@@ -58,9 +63,51 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recipeRecycler.setAdapter(mRecipeAdapter);
         recipeRecycler.setHasFixedSize(true);
 
+        if (checkforDatabase()){
+            fetchRecipeData();
+        } else {
+            getLoaderManager().restartLoader(RECIPE_LOADER, null, this);
+        }
+
         // Create recyclerView onClick ingredients and steps
         // Call background thread.
         getLoaderManager().initLoader(RECIPE_LOADER, null, MainActivity.this);
+    }
+
+    /**
+     * This method helps us check if our database is empty.
+     * @return True if the database is empty and false if it exists.
+     */
+    boolean checkforDatabase(){
+        boolean empty = true;
+        RecipeDatabaseHelper helper = new RecipeDatabaseHelper(MainActivity.this);
+        SQLiteDatabase database = helper.getReadableDatabase();
+        String check = "SELECT COUNT(*) FROM recipes";
+        Cursor cursor = database.rawQuery(check, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            empty = (cursor.getInt (0) == 0);
+        }
+        cursor.close();
+        return empty;
+    }
+
+    /**
+     * This method runs our network operations on a background thread.
+     * It also helps us decide what should be shown in the view depending on internet connection.
+     */
+    void fetchRecipeData(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            new FetchRecipeData().execute();
+            getLoaderManager().initLoader(RECIPE_LOADER, null, this);
+            //mEmpty.setText(R.string.nothing);
+            //showSchoolRoster();
+
+        } else {
+//            showLoadingIndicator();
+//            mEmpty.setText(R.string.no_internet);
+        }
     }
 
     @Override
@@ -96,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected ContentValues[] doInBackground(String... params) {
 
             try {
-                String recipeJSONResponse = BakeNetworkUtility.getHttpResponse(BakingUrl.getRecipeUrl());
-                mRecipeData = BakeJSONUtility.getRecipeStringsFromJSON(MainActivity.this, recipeJSONResponse);
+                String recipeJSONResponse = NetworkUtility.getHttpResponse(BakingUrl.getRecipeUrl());
+                mRecipeData = JSONUtility.getRecipeStringsFromJSON(MainActivity.this, recipeJSONResponse);
                 Log.v(LOG_TAG, mRecipeData[2].toString());
                 return mRecipeData;
             } catch (Exception e) {

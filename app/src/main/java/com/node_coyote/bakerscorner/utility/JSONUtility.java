@@ -16,11 +16,11 @@ import org.json.JSONObject;
  * Created by node_coyote on 6/6/17.
  */
 
-public final class BakeJSONUtility {
+public final class JSONUtility {
 
 
     // A tag for log messages.
-    public static final String LOG_TAG = BakeJSONUtility.class.getSimpleName();
+    public static final String LOG_TAG = JSONUtility.class.getSimpleName();
 
     public static ContentValues[] getRecipeStringsFromJSON(Context context, String recipeJSONString) throws JSONException {
 

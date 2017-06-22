@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.node_coyote.bakerscorner">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,7 @@
             android:exported="false"
             android:enabled="true"
             android:authorities="com.node_coyote.bakerscorner.recipeData"
-            android:name=".recipeData.BakeProvider" />
+            android:name=".recipeData.RecipeProvider" />
         
         <provider
             android:exported="false"
