@@ -5,20 +5,16 @@
     android:layout_height="match_parent"
     tools:context="com.node_coyote.bakerscorner.ingredients.IngredientsFragment">
 
-    <TextView
-        android:text="Ballin"
-        android:id="@+id/quantity_text_view"
+    <ImageButton
+        android:id="@+id/play_video_image_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/recipe_image_circle"
+        android:contentDescription="@string/ingredient_image_content_description" />
 
-    <TextView
-        android:id="@+id/measure_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/ingredient_text_view"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/ingredients_list_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </FrameLayout>

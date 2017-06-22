@@ -12,7 +12,7 @@ public class IngredientContract {
 
         public IngredientContract(){}
      
-        public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.ingredientData";
+        public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.ingredients";
 
         public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 

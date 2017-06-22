@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
+import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
 
 /**
  * Created by node_coyote on 6/6/17.
@@ -48,7 +49,32 @@ public class IngredientProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        return null;
+        // We need a readable database to look at.
+        SQLiteDatabase database = mHelper.getReadableDatabase();
+
+        // We'll pack a cursor with ingredients for the roster.
+        Cursor cursor;
+
+        // Match uri to code.
+        int match = sMatcher.match(uri);
+        switch (match) {
+            case INGREDIENT:
+                // look at the whole roster of schools.
+                cursor = database.query(IngredientEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case INGREDIENT_ID:
+                // query a row by id.
+                // Add an additional parameter for an individual school in the database.
+                selection = StepEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                cursor = database.query(IngredientEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot query unknown uri " + uri);
+        }
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
     }
 
     @Nullable

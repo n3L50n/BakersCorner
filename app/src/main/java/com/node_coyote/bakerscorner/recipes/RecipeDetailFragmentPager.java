@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.node_coyote.bakerscorner.ingredients.IngredientsFragment;
 import com.node_coyote.bakerscorner.steps.StepsFragment;
-import com.node_coyote.bakerscorner.viewFragments.VideoFragment;
+import com.node_coyote.bakerscorner.videos.VideoFragment;
 
 /**
  * Created by node_coyote on 6/22/17.

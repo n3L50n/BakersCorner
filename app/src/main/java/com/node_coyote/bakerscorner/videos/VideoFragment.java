@@ -1,6 +1,5 @@
-package com.node_coyote.bakerscorner.viewFragments;
+package com.node_coyote.bakerscorner.videos;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
