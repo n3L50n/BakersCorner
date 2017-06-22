@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
+    android:background="@color/colorAccent"
     android:orientation="horizontal">
 
     <ImageView
@@ -25,8 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:textSize="26sp"
-            android:text="Nutella" />
+            android:textSize="26sp" />
 
         <Button
             android:id="@+id/ingredients_button"

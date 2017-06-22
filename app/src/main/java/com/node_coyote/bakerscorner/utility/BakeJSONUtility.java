@@ -126,11 +126,12 @@ public final class BakeJSONUtility {
 
                 parsedRecipeValues[i] = values;
             }
-            context.getContentResolver().bulkInsert(BakeEntry.CONTENT_URI, parsedRecipeValues);
 
         } catch (JSONException e){
             e.printStackTrace();
         }
+        Log.v(LOG_TAG, parsedRecipeValues[3].toString());
+        context.getContentResolver().bulkInsert(BakeEntry.CONTENT_URI, parsedRecipeValues);
         return parsedRecipeValues;
     }
 }

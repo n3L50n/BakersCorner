@@ -21,7 +21,7 @@ public class IngredientDatabaseHelper extends SQLiteOpenHelper{
             + IngredientEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + IngredientEntry.COLUMN_INGREDIENT + " TEXT, "
             + IngredientEntry.COLUMN_MEASURE + " TEXT, "
-            + IngredientEntry.COLUMN_QUANTITY + " TEXT, "
+            + IngredientEntry.COLUMN_QUANTITY + " REAL, "
             + IngredientEntry.COLUMN_INGREDIENT_ID + " INTEGER);";
 
     public IngredientDatabaseHelper(Context context) {
