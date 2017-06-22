@@ -10,17 +10,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.node_coyote.bakerscorner.recipeData.BakeContract.BakeEntry;
 import com.node_coyote.bakerscorner.recipeData.BakingUrl;
 import com.node_coyote.bakerscorner.recipeData.RecipeDatabaseHelper;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
 import com.node_coyote.bakerscorner.utility.NetworkUtility;
+import com.node_coyote.bakerscorner.viewFragments.IngredientsFragment;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Create recyclerView onClick ingredients and steps
         // Call background thread.
-        getLoaderManager().initLoader(RECIPE_LOADER, null, MainActivity.this);
     }
 
     /**
