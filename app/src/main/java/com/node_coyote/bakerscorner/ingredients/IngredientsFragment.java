@@ -6,23 +6,15 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.node_coyote.bakerscorner.R;
-import com.node_coyote.bakerscorner.recipes.RecipeDetailActivity;
 import com.node_coyote.bakerscorner.steps.StepContract;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link IngredientsFragment.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link IngredientsFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
 public class IngredientsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final int INGREDIENT_LOADER = 9;
@@ -30,7 +22,7 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
 
     String[] INGREDIENT_PROJECTION = {
             IngredientContract.IngredientEntry._ID,
-            IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID,
+            //IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID,
             IngredientContract.IngredientEntry.COLUMN_QUANTITY,
             IngredientContract.IngredientEntry.COLUMN_MEASURE,
             IngredientContract.IngredientEntry.COLUMN_INGREDIENT
@@ -46,36 +38,10 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
             StepContract.StepEntry.COLUMN_THUMBNAIL_URL
     };
 
-    IngredientAdapter mIngredientAdapter;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    IngredientCursorAdapter mIngredientAdapter;
 
     public IngredientsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IngredientsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static IngredientsFragment newInstance(String param1, String param2) {
-        IngredientsFragment fragment = new IngredientsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -84,8 +50,10 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
 
         // Inflate the layout for this fragment
         View ingredientsView = inflater.inflate(R.layout.fragment_ingredients, container, false);
-        ListView ingredientsList = (ListView) ingredientsView.findViewById(R.id.ingredients_list_view);
-        mIngredientAdapter = new IngredientAdapter(container.getContext());
+        RecyclerView ingredientsList = (RecyclerView) ingredientsView.findViewById(R.id.ingredients_recycler_view);
+        mIngredientAdapter = new IngredientCursorAdapter(getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        ingredientsList.setLayoutManager(manager);
         ingredientsList.setAdapter(mIngredientAdapter);
         getLoaderManager().initLoader(INGREDIENT_LOADER, null, this);
         return ingredientsView;
@@ -124,6 +92,6 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
-
+        mIngredientAdapter.swapIngredientCursor(null);
     }
 }

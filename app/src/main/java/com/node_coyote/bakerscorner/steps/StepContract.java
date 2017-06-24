@@ -12,7 +12,7 @@ public class StepContract {
 
     public StepContract(){}
 
-    public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.stepData";
+    public static final String CONTENT_AUTHORITY = "com.node_coyote.bakerscorner.steps";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 

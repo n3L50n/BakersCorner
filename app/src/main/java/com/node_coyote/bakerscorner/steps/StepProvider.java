@@ -40,7 +40,32 @@ public class StepProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        return null;
+        // We need a readable database to look at.
+        SQLiteDatabase database = mHelper.getReadableDatabase();
+
+        // We'll pack a cursor with recipes for the roster.
+        Cursor cursor;
+
+        // Match uri to code.
+        int match = sMatcher.match(uri);
+        switch (match) {
+            case STEP:
+                // look at the whole roster of schools.
+                cursor = database.query(StepEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case STEP_ID:
+                // query a row by id.
+                // Add an additional parameter for an individual school in the database.
+                selection = StepEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                cursor = database.query(StepEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot query unknown uri " + uri);
+        }
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
     }
 
     @Nullable

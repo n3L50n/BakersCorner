@@ -45,7 +45,7 @@ public class IngredientContract {
              */
             public static final String _ID = BaseColumns._ID;
         
-            public static final String COLUMN_INGREDIENT_ID = "ingredients_id";
+            //public static final String COLUMN_INGREDIENT_ID = "ingredients_id";
 
             public static final String COLUMN_QUANTITY = "quantity";
 

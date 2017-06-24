@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 
 /**
  * Created by node_coyote on 6/6/17.
@@ -20,7 +20,7 @@ import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
 public class RecipeProvider extends ContentProvider {
 
     // A tag for log messages.
-    public static final String LOG_TAG = RecipeContract.BakeEntry.class.getSimpleName();
+    public static final String LOG_TAG = RecipeEntry.class.getSimpleName();
 
     // uri watcher code for the content uri for the recipe database.
     private static final int RECIPE = 42;
@@ -59,14 +59,14 @@ public class RecipeProvider extends ContentProvider {
         switch (match) {
             case RECIPE:
                 // look at the whole roster of schools.
-                cursor = database.query(BakeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = database.query(RecipeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case RECIPE_ID:
                 // query a row by id.
                 // Add an additional parameter for an individual school in the database.
-                selection = BakeEntry._ID + "=?";
+                selection = RecipeEntry._ID + "=?";
                 selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
-                cursor = database.query(BakeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = database.query(RecipeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("Cannot query unknown uri " + uri);
@@ -82,9 +82,9 @@ public class RecipeProvider extends ContentProvider {
         final int match = sMatcher.match(uri);
         switch (match) {
             case RECIPE:
-                return BakeEntry.CONTENT_LIST_TYPE;
+                return RecipeEntry.CONTENT_LIST_TYPE;
             case RECIPE_ID:
-                return BakeEntry.CONTENT_ITEM_TYPE;
+                return RecipeEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown uri" + uri + "with match" + match);
         }
@@ -102,7 +102,7 @@ public class RecipeProvider extends ContentProvider {
             case RECIPE_ID:
 
                 // insert new ingredients with given values
-                long id = database.insert(BakeEntry.TABLE_NAME, null, values);
+                long id = database.insert(RecipeEntry.TABLE_NAME, null, values);
 
                 // Insertion fails if id is -1. Log it with error and return null
                 if (id == -1) {
@@ -128,7 +128,7 @@ public class RecipeProvider extends ContentProvider {
                 int rowsInserted = 0;
                 try {
                     for (ContentValues value : values) {
-                        long _id = database.insert(BakeEntry.TABLE_NAME, null, value);
+                        long _id = database.insert(RecipeEntry.TABLE_NAME, null, value);
                         Log.v(LOG_TAG, String.valueOf(_id));
                         if (_id != -1) {
                             rowsInserted++;

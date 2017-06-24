@@ -17,7 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.node_coyote.bakerscorner.R;
-import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
 import com.node_coyote.bakerscorner.utility.NetworkUtility;
 
@@ -38,13 +38,13 @@ public class RecipeActivity extends AppCompatActivity implements LoaderManager.L
     private ContentValues[] mRecipeData;
     private static final int RECIPE_LOADER = 5;
     private static final String[] RECIPE_PROJECTION = {
-            BakeEntry._ID,
-            BakeEntry.COLUMN_RECIPE_ID,
-            BakeEntry.COLUMN_RECIPE_NAME,
-            BakeEntry.COLUMN_RECIPE_INGREDIENTS_ID,
-            BakeEntry.COLUMN_RECIPE_STEPS_ID,
-            BakeEntry.COLUMN_RECIPE_SERVINGS,
-            BakeEntry.COLUMN_RECIPE_IMAGE
+            RecipeEntry._ID,
+            RecipeEntry.COLUMN_RECIPE_ID,
+            RecipeEntry.COLUMN_RECIPE_NAME,
+//            RecipeEntry.COLUMN_RECIPE_INGREDIENTS_ID,
+//            RecipeEntry.COLUMN_RECIPE_STEPS_ID,
+            RecipeEntry.COLUMN_RECIPE_SERVINGS,
+            RecipeEntry.COLUMN_RECIPE_IMAGE
     };
 
     @Override
@@ -60,7 +60,7 @@ public class RecipeActivity extends AppCompatActivity implements LoaderManager.L
         recipeRecycler.setAdapter(mRecipeAdapter);
         recipeRecycler.setHasFixedSize(true);
 
-        if (checkforDatabase()){
+        if (checkForDatabase()){
             fetchRecipeData();
         } else {
             getLoaderManager().restartLoader(RECIPE_LOADER, null, this);
@@ -74,7 +74,7 @@ public class RecipeActivity extends AppCompatActivity implements LoaderManager.L
      * This method helps us check if our database is empty.
      * @return True if the database is empty and false if it exists.
      */
-    boolean checkforDatabase(){
+    boolean checkForDatabase(){
         boolean empty = true;
         RecipeDatabaseHelper helper = new RecipeDatabaseHelper(RecipeActivity.this);
         SQLiteDatabase database = helper.getReadableDatabase();
@@ -112,7 +112,7 @@ public class RecipeActivity extends AppCompatActivity implements LoaderManager.L
             case RECIPE_LOADER:
                 return new CursorLoader(
                         this,
-                        BakeEntry.CONTENT_URI,
+                        RecipeEntry.CONTENT_URI,
                         RECIPE_PROJECTION,
                         null,
                         null,
@@ -152,8 +152,6 @@ public class RecipeActivity extends AppCompatActivity implements LoaderManager.L
         @Override
         protected void onPostExecute(ContentValues[] recipeData) {
             mRecipeData = recipeData;
-            Log.v(LOG_TAG, mRecipeData[2].toString());
-
             if (mRecipeData != null) {
                 mRecipeAdapter.setRecipeData(mRecipeData);
             }

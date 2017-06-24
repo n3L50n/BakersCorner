@@ -16,7 +16,7 @@ public class RecipeContract {
 
     public static final String PATH_RECIPE = "recipes";
 
-    public static final class BakeEntry implements BaseColumns {
+    public static final class RecipeEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath(PATH_RECIPE)
@@ -54,15 +54,15 @@ public class RecipeContract {
          */
         public static final String COLUMN_RECIPE_NAME = "name";
 
-        /**
-         * Type: INTEGER
-         */
-        public static final String COLUMN_RECIPE_INGREDIENTS_ID = "ingredients_id";
-
-        /**
-         * Type: INTEGER
-         */
-        public static final String COLUMN_RECIPE_STEPS_ID = "steps_recipe_id";
+//        /**
+//         * Type: INTEGER
+//         */
+//        public static final String COLUMN_RECIPE_INGREDIENTS_ID = "ingredients_id";
+//
+//        /**
+//         * Type: INTEGER
+//         */
+//        public static final String COLUMN_RECIPE_STEPS_ID = "steps_recipe_id";
 
         /**
          * Type: INTEGER

@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.node_coyote.bakerscorner.R;
-import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 
 /**
  * Created by node_coyote on 6/20/17.
@@ -37,11 +37,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     @Override
     public void onBindViewHolder(RecipeAdapterViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        int columnRecipeNameIndex = mCursor.getColumnIndex(BakeEntry.COLUMN_RECIPE_NAME);
-        int columnServingsIndex = mCursor.getColumnIndex(BakeEntry.COLUMN_RECIPE_SERVINGS);
+        int columnRecipeNameIndex = mCursor.getColumnIndex(RecipeEntry.COLUMN_RECIPE_NAME);
+        int columnServingsIndex = mCursor.getColumnIndex(RecipeEntry.COLUMN_RECIPE_SERVINGS);
+
         String recipeName = mCursor.getString(columnRecipeNameIndex);
         int servingsValue = mCursor.getInt(columnServingsIndex);
         String servings = mContext.getString(R.string.recipe_servings_text) + " " + String.valueOf(servingsValue);
+
         holder.mRecipeNameView.setText(recipeName);
         holder.mServingsView.setText(servings);
     }
@@ -80,6 +82,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent( v.getContext(), RecipeDetailActivity.class);
+
+                    //intent.putExtra();
                     v.getContext().startActivity(intent);
                 }
             });

@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
-import com.node_coyote.bakerscorner.recipes.RecipeContract.BakeEntry;
+import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
 import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
 
@@ -17,7 +17,6 @@ import org.json.JSONObject;
  */
 
 public final class JSONUtility {
-
 
     // A tag for log messages.
     public static final String LOG_TAG = JSONUtility.class.getSimpleName();
@@ -59,36 +58,27 @@ public final class JSONUtility {
                 String recipeName = recipe.getString(NAME);
                 JSONArray recipeIngredients = recipe.getJSONArray(INGREDIENTS);
 
-                int ingredientItemCounter = 0;
-                int ingredientId = recipeId + ingredientItemCounter;
-                ContentValues ingredientValues = new ContentValues();
+
                 ContentValues[] ingredientsValuesArray = new ContentValues[recipeIngredients.length()];
 
                 for (int j = 0; j < recipeIngredients.length(); j++){
-                    
-                    JSONObject ingredients = recipeIngredients.getJSONObject(i);
+                    JSONObject ingredients = recipeIngredients.getJSONObject(j);
 
                     int quantity = ingredients.getInt(QUANTITY);
                     String measure = ingredients.getString(MEASURE);
                     String ingredient = ingredients.getString(INGREDIENT);
-
-                    ingredientItemCounter++;
-                    ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT_ID, ingredientId);
-                    ingredientValues.put(IngredientEntry.COLUMN_QUANTITY, quantity);  
+                    ContentValues ingredientValues = new ContentValues();
+                    //ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT_ID, recipeId);
+                    ingredientValues.put(IngredientEntry.COLUMN_QUANTITY, quantity);
                     ingredientValues.put(IngredientEntry.COLUMN_MEASURE, measure);
                     ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT, ingredient);
 
                     ingredientsValuesArray[j] = ingredientValues;
                 }
 
-                context.getContentResolver().bulkInsert(IngredientEntry.CONTENT_URI, ingredientsValuesArray);
-
                 JSONArray recipeSteps = recipe.getJSONArray(STEPS);
 
-                int stepsItemCounter = 0;
-                int stepsRecipeId = recipeId + stepsItemCounter;
 
-                ContentValues stepValues = new ContentValues();
                 ContentValues[] stepValuesArray = new ContentValues[recipeSteps.length()];
 
                 for (int k = 0; k < recipeSteps.length(); k++ ) {
@@ -101,6 +91,7 @@ public final class JSONUtility {
                     String videoURL = steps.getString(VIDEO_URL);
                     String thumbnailURL = steps.getString(THUMBNAIL_URL);
 
+                    ContentValues stepValues = new ContentValues();
                     stepValues.put(StepEntry.COLUMN_STEP_ID, stepId);
                     stepValues.put(StepEntry.COLUMN_SHORT_DESCRIPTION, shortDescription);
                     stepValues.put(StepEntry.COLUMN_DESCRIPTION, description);
@@ -108,30 +99,28 @@ public final class JSONUtility {
                     stepValues.put(StepEntry.COLUMN_THUMBNAIL_URL, thumbnailURL);
 
                     stepValuesArray[k] = stepValues;
-
                 }
-
-                context.getContentResolver().bulkInsert(StepEntry.CONTENT_URI, stepValuesArray);
 
                 int recipeServings = recipe.getInt(SERVINGS);
                 String recipeImage = recipe.getString(IMAGE);
 
                 ContentValues values = new ContentValues();
-                values.put(BakeEntry.COLUMN_RECIPE_ID, recipeId);
-                values.put(BakeEntry.COLUMN_RECIPE_NAME, recipeName);
-                values.put(BakeEntry.COLUMN_RECIPE_INGREDIENTS_ID, ingredientId);
-                values.put(BakeEntry.COLUMN_RECIPE_STEPS_ID, stepsRecipeId);
-                values.put(BakeEntry.COLUMN_RECIPE_SERVINGS, recipeServings);
-                values.put(BakeEntry.COLUMN_RECIPE_IMAGE, recipeImage);
+                values.put(RecipeEntry.COLUMN_RECIPE_ID, recipeId);
+                values.put(RecipeEntry.COLUMN_RECIPE_NAME, recipeName);
+                //values.put(RecipeEntry.COLUMN_RECIPE_INGREDIENTS_ID, recipeId);
+                //values.put(RecipeEntry.COLUMN_RECIPE_STEPS_ID, recipeId);
+                values.put(RecipeEntry.COLUMN_RECIPE_SERVINGS, recipeServings);
+                values.put(RecipeEntry.COLUMN_RECIPE_IMAGE, recipeImage);
 
+                context.getContentResolver().bulkInsert(IngredientEntry.CONTENT_URI, ingredientsValuesArray);
+                context.getContentResolver().bulkInsert(StepEntry.CONTENT_URI, stepValuesArray);
                 parsedRecipeValues[i] = values;
             }
 
         } catch (JSONException e){
             e.printStackTrace();
         }
-        Log.v(LOG_TAG, parsedRecipeValues[3].toString());
-        context.getContentResolver().bulkInsert(BakeEntry.CONTENT_URI, parsedRecipeValues);
+        context.getContentResolver().bulkInsert(RecipeEntry.CONTENT_URI, parsedRecipeValues);
         return parsedRecipeValues;
     }
 }
