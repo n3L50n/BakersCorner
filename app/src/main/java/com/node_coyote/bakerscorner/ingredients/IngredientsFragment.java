@@ -1,8 +1,6 @@
 package com.node_coyote.bakerscorner.ingredients;
 
 import android.support.v4.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.node_coyote.bakerscorner.R;
-import com.node_coyote.bakerscorner.steps.StepContract;
 
 public class IngredientsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final int INGREDIENT_LOADER = 9;
-    public static final int STEPS_LOADER = 3;
 
     String[] INGREDIENT_PROJECTION = {
             IngredientContract.IngredientEntry._ID,
@@ -27,15 +23,6 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
             IngredientContract.IngredientEntry.COLUMN_MEASURE,
             IngredientContract.IngredientEntry.COLUMN_INGREDIENT
 
-    };
-
-    String[] STEPS_PROJECTION = {
-            StepContract.StepEntry._ID,
-            StepContract.StepEntry.COLUMN_STEP_ID,
-            StepContract.StepEntry.COLUMN_SHORT_DESCRIPTION,
-            StepContract.StepEntry.COLUMN_DESCRIPTION,
-            StepContract.StepEntry.COLUMN_VIDEO_URL,
-            StepContract.StepEntry.COLUMN_THUMBNAIL_URL
     };
 
     IngredientCursorAdapter mIngredientAdapter;
@@ -71,15 +58,7 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
                         null,
                         null
                 );
-            case STEPS_LOADER:
-                return new android.support.v4.content.CursorLoader(
-                        getContext(),
-                        StepContract.StepEntry.CONTENT_URI,
-                        STEPS_PROJECTION,
-                        null,
-                        null,
-                        null
-                );
+
             default:
                 throw new RuntimeException("Loader not implemented" + loaderId);
         }

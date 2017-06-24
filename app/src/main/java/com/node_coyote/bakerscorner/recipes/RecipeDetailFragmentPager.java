@@ -29,8 +29,6 @@ public class RecipeDetailFragmentPager extends FragmentPagerAdapter {
                 return new IngredientsFragment();
             case 1:
                 return new StepsFragment();
-            case 2:
-                return new VideoFragment();
             default:
                 return new IngredientsFragment();
         }
@@ -38,6 +36,6 @@ public class RecipeDetailFragmentPager extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }

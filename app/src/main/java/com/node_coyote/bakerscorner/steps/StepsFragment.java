@@ -1,12 +1,17 @@
 package com.node_coyote.bakerscorner.steps;
 
+import android.support.v4.app.LoaderManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.node_coyote.bakerscorner.R;
 
 /**
@@ -17,9 +22,21 @@ import com.node_coyote.bakerscorner.R;
  * Use the {@link StepsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StepsFragment extends Fragment {
+public class StepsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    // TODO OnClick fade away fragments set view visibility:GONE, then kill view (send intent)
+    SimpleExoPlayerView mExoPlayer;
+    StepsCursorAdapter mAdapter;
+
+    public static final int STEPS_LOADER = 3;
+
+    String[] STEPS_PROJECTION = {
+            StepContract.StepEntry._ID,
+            StepContract.StepEntry.COLUMN_STEP_ID,
+            StepContract.StepEntry.COLUMN_SHORT_DESCRIPTION,
+            StepContract.StepEntry.COLUMN_DESCRIPTION,
+            StepContract.StepEntry.COLUMN_VIDEO_URL,
+            StepContract.StepEntry.COLUMN_THUMBNAIL_URL
+    };
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,8 +83,20 @@ public class StepsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View stepsContainer = inflater.inflate(R.layout.fragment_steps, container, false);
+        mExoPlayer = (SimpleExoPlayerView) container.findViewById(R.id.recipe_exo_player);
+        mAdapter = new StepsCursorAdapter(getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        RecyclerView stepRecycler = (RecyclerView) stepsContainer.findViewById(R.id.steps_recycler_view);
+        stepRecycler.setAdapter(mAdapter);
+        stepRecycler.setLayoutManager(manager);
+
+
+        getLoaderManager().initLoader(STEPS_LOADER, null, this);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_steps, container, false);
+        // TODO initialize player here
+        return stepsContainer;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,6 +104,34 @@ public class StepsFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public android.support.v4.content.Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
+
+        switch (loaderId) {
+            case STEPS_LOADER:
+                return new android.support.v4.content.CursorLoader(
+                        getContext(),
+                        StepContract.StepEntry.CONTENT_URI,
+                        STEPS_PROJECTION,
+                        null,
+                        null,
+                        null
+                );
+            default:
+                throw new RuntimeException("Loader not implemented" + loaderId);
+        }
+    }
+
+    @Override
+    public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapStepCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
+        mAdapter.swapStepCursor(null);
     }
 
 //    @Override
