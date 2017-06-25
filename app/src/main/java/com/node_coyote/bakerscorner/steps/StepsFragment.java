@@ -11,8 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.node_coyote.bakerscorner.R;
+
+import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,18 +25,18 @@ import com.node_coyote.bakerscorner.R;
  */
 public class StepsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    SimpleExoPlayerView mExoPlayer;
+
     StepsCursorAdapter mAdapter;
 
     public static final int STEPS_LOADER = 3;
 
     String[] STEPS_PROJECTION = {
-            StepContract.StepEntry._ID,
-            StepContract.StepEntry.COLUMN_STEP_ID,
-            StepContract.StepEntry.COLUMN_SHORT_DESCRIPTION,
-            StepContract.StepEntry.COLUMN_DESCRIPTION,
-            StepContract.StepEntry.COLUMN_VIDEO_URL,
-            StepContract.StepEntry.COLUMN_THUMBNAIL_URL
+            StepEntry._ID,
+            StepEntry.COLUMN_STEP_ID,
+            StepEntry.COLUMN_SHORT_DESCRIPTION,
+            StepEntry.COLUMN_DESCRIPTION,
+            StepEntry.COLUMN_VIDEO_URL,
+            StepEntry.COLUMN_THUMBNAIL_URL
     };
 
     // TODO: Rename parameter arguments, choose names that match
@@ -84,20 +85,21 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View stepsContainer = inflater.inflate(R.layout.fragment_steps, container, false);
-        mExoPlayer = (SimpleExoPlayerView) container.findViewById(R.id.recipe_exo_player);
+
         mAdapter = new StepsCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         RecyclerView stepRecycler = (RecyclerView) stepsContainer.findViewById(R.id.steps_recycler_view);
         stepRecycler.setAdapter(mAdapter);
         stepRecycler.setLayoutManager(manager);
 
-
         getLoaderManager().initLoader(STEPS_LOADER, null, this);
 
         // Inflate the layout for this fragment
         // TODO initialize player here
+
         return stepsContainer;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -113,7 +115,7 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
             case STEPS_LOADER:
                 return new android.support.v4.content.CursorLoader(
                         getContext(),
-                        StepContract.StepEntry.CONTENT_URI,
+                        StepEntry.CONTENT_URI,
                         STEPS_PROJECTION,
                         null,
                         null,
