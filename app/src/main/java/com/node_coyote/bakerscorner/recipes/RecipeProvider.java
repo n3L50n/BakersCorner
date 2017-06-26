@@ -48,6 +48,7 @@ public class RecipeProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+
         // We need a readable database to look at.
         SQLiteDatabase database = mHelper.getReadableDatabase();
 
@@ -58,12 +59,12 @@ public class RecipeProvider extends ContentProvider {
         int match = sMatcher.match(uri);
         switch (match) {
             case RECIPE:
-                // look at the whole roster of schools.
+                // look at the whole set of recipes.
                 cursor = database.query(RecipeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case RECIPE_ID:
                 // query a row by id.
-                // Add an additional parameter for an individual school in the database.
+                // Add an additional parameter for an individual recipe in the database.
                 selection = RecipeEntry._ID + "=?";
                 selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
                 cursor = database.query(RecipeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);

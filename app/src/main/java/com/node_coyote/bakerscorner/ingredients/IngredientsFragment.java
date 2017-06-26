@@ -20,6 +20,7 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
     public static final int INGREDIENT_LOADER = 9;
     private static final String RECIPE_ID_KEY = "RECIPE ID";
     private static final String ROW_ID_KEY = "ROW_ID";
+    int INGREDIENT_ID;
 
 
     String[] INGREDIENT_PROJECTION = {
@@ -45,9 +46,10 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
         View ingredientsView = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
         Bundle bundle = getActivity().getIntent().getExtras();
-        long t =  bundle.getLong(ROW_ID_KEY);
-        Log.v("ROW ID", String.valueOf(t));
-
+        long rowId =  bundle.getLong(ROW_ID_KEY);
+        Log.v("ROW ID", String.valueOf(rowId));
+        INGREDIENT_ID = (int) (long) rowId;
+        Log.v("INGREDIENT ID", String.valueOf(INGREDIENT_ID));
         RecyclerView ingredientsList = (RecyclerView) ingredientsView.findViewById(R.id.ingredients_recycler_view);
         mIngredientAdapter = new IngredientCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -61,11 +63,12 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
         switch (loaderId) {
             case INGREDIENT_LOADER:
+                String selection = "ingredients_id = " + INGREDIENT_ID;
                 return new android.support.v4.content.CursorLoader(
                         getContext(),
                         IngredientContract.IngredientEntry.CONTENT_URI,
                         INGREDIENT_PROJECTION,
-                        null,
+                        selection,
                         null,
                         null
                 );

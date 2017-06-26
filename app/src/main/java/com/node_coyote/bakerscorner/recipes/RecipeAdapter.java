@@ -105,6 +105,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
             int adapterPosition = getAdapterPosition();
             Bundle bundle = new Bundle();
+            mCursor.moveToPosition(adapterPosition);
 
             int rowIdColumnIndex = mCursor.getColumnIndex(IngredientEntry._ID);
             long rowId = mCursor.getLong(rowIdColumnIndex);
@@ -113,7 +114,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
             mRecipeClickHandler.onClick(uri);
             Log.v("SENDING ROW ID", String.valueOf(rowId));
 
-            mCursor.moveToPosition(adapterPosition);
             int recipeId = mCursor.getColumnIndex(RecipeEntry.COLUMN_RECIPE_ID);
 
             // TODO recipeId unnecessary? Just use rowId?

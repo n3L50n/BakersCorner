@@ -1,13 +1,10 @@
 package com.node_coyote.bakerscorner.recipes;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.node_coyote.bakerscorner.ingredients.IngredientContract;
 import com.node_coyote.bakerscorner.ingredients.IngredientsFragment;
 import com.node_coyote.bakerscorner.steps.StepsFragment;
 
@@ -18,8 +15,6 @@ import com.node_coyote.bakerscorner.steps.StepsFragment;
 public class RecipeDetailFragmentPager extends FragmentPagerAdapter {
 
     Context mContext;
-    Cursor mCursor;
-    private static final String RECIPE_ID_KEY = "RECIPE ID";
 
     RecipeDetailFragmentPager(Context context, FragmentManager fm) {
         super(fm);
