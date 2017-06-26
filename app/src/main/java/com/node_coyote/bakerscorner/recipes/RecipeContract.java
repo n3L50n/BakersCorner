@@ -54,16 +54,6 @@ public class RecipeContract {
          */
         public static final String COLUMN_RECIPE_NAME = "name";
 
-//        /**
-//         * Type: INTEGER
-//         */
-//        public static final String COLUMN_RECIPE_INGREDIENTS_ID = "ingredients_id";
-//
-//        /**
-//         * Type: INTEGER
-//         */
-//        public static final String COLUMN_RECIPE_STEPS_ID = "steps_recipe_id";
-
         /**
          * Type: INTEGER
          */

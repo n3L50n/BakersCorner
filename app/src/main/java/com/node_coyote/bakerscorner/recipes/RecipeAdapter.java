@@ -2,7 +2,6 @@ package com.node_coyote.bakerscorner.recipes;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,16 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
-import com.node_coyote.bakerscorner.ingredients.IngredientsFragment;
 import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
-import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
-import com.node_coyote.bakerscorner.steps.StepsFragment;
 
 /**
  * Created by node_coyote on 6/20/17.
@@ -87,16 +82,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
         final TextView mRecipeNameView;
         final TextView mServingsView;
-        final Button mIngredientsButton;
 
         RecipeAdapterViewHolder(View itemView) {
             super(itemView);
             mRecipeNameView = (TextView) itemView.findViewById(R.id.recipe_title_view);
             mServingsView = (TextView) itemView.findViewById(R.id.servings_view);
-            // TODO work with onClick events more gracefully.
-
-            // TODO change button to textView. Entire view will be a button.
-            mIngredientsButton = (Button) itemView.findViewById(R.id.ingredients_button);
             itemView.setOnClickListener(this);
         }
 
@@ -114,14 +104,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
             mRecipeClickHandler.onClick(uri);
             Log.v("SENDING ROW ID", String.valueOf(rowId));
 
-            int recipeId = mCursor.getColumnIndex(RecipeEntry.COLUMN_RECIPE_ID);
-
-            // TODO recipeId unnecessary? Just use rowId?
-            Log.v("SENDING RECIPE ID", String.valueOf(recipeId));
-
             // Send over our recipeId so our Ingredients and Steps fragments
             // can know which parts of the database to query, load cursor, and populate views.
-            bundle.putInt(RECIPE_ID_KEY, recipeId);
             bundle.putLong(ROW_ID_KEY, rowId);
 
             // Go to our ViewPager with 2 fragments; Ingredients and Steps

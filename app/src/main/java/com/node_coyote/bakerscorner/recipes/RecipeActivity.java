@@ -45,8 +45,6 @@ public class RecipeActivity extends AppCompatActivity
             RecipeEntry._ID,
             RecipeEntry.COLUMN_RECIPE_ID,
             RecipeEntry.COLUMN_RECIPE_NAME,
-//            RecipeEntry.COLUMN_RECIPE_INGREDIENTS_ID,
-//            RecipeEntry.COLUMN_RECIPE_STEPS_ID,
             RecipeEntry.COLUMN_RECIPE_SERVINGS,
             RecipeEntry.COLUMN_RECIPE_IMAGE
     };

@@ -14,7 +14,7 @@ import com.node_coyote.bakerscorner.steps.StepsFragment;
 
 public class RecipeDetailFragmentPager extends FragmentPagerAdapter {
 
-    Context mContext;
+    private Context mContext;
 
     RecipeDetailFragmentPager(Context context, FragmentManager fm) {
         super(fm);

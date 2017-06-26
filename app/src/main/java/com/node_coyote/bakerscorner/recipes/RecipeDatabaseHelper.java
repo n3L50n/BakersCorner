@@ -21,8 +21,6 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
             + RecipeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + RecipeEntry.COLUMN_RECIPE_ID + " INTEGER, "
             + RecipeEntry.COLUMN_RECIPE_NAME + " TEXT, "
-//            + RecipeEntry.COLUMN_RECIPE_INGREDIENTS_ID + " INTEGER, "
-//            + RecipeEntry.COLUMN_RECIPE_STEPS_ID + " INTEGER, "
             + RecipeEntry.COLUMN_RECIPE_SERVINGS + " INTEGER, "
             + RecipeEntry.COLUMN_RECIPE_IMAGE + " TEXT);";
 

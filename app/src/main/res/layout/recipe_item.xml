@@ -27,15 +27,15 @@
             android:textColor="@android:color/black"
             android:textSize="26sp" />
 
-        <Button
-            android:id="@+id/ingredients_button"
+        <TextView
+            android:id="@+id/ingredients_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:text="@string/recipe_ingredients_button_text" />
 
-        <Button
-            android:id="@+id/steps_button"
+        <TextView
+            android:id="@+id/steps_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
