@@ -97,13 +97,6 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
         return stepsContainer;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
 

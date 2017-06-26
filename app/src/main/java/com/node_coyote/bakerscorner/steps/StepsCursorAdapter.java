@@ -66,12 +66,14 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
 
         if (!thumbnail.isEmpty() && thumbnail.length() != 0) {
             Picasso.with(holder.mThumbnailView.getContext()).load(thumbnail).into(holder.mThumbnailView);
+            holder.mThumbnailView.setVisibility(View.VISIBLE);
         }
 
         holder.mDescriptionView.setText(description);
 
-        if (!video.isEmpty() && video.length() != 0) {
+        if (!video.isEmpty() || video.length() != 0) {
             holder.initializePlayer(Uri.parse(video));
+            holder.mExoPlayerView.setVisibility(View.VISIBLE);
         } else {
             holder.mExoPlayerView.setVisibility(View.GONE);
         }
