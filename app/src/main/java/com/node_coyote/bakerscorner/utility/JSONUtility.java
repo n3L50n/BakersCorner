@@ -68,7 +68,7 @@ public final class JSONUtility {
                     String measure = ingredients.getString(MEASURE);
                     String ingredient = ingredients.getString(INGREDIENT);
                     ContentValues ingredientValues = new ContentValues();
-                    //ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT_ID, recipeId);
+                    ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT_ID, recipeId);
                     ingredientValues.put(IngredientEntry.COLUMN_QUANTITY, quantity);
                     ingredientValues.put(IngredientEntry.COLUMN_MEASURE, measure);
                     ingredientValues.put(IngredientEntry.COLUMN_INGREDIENT, ingredient);
@@ -97,6 +97,7 @@ public final class JSONUtility {
                     stepValues.put(StepEntry.COLUMN_DESCRIPTION, description);
                     stepValues.put(StepEntry.COLUMN_VIDEO_URL, videoURL); 
                     stepValues.put(StepEntry.COLUMN_THUMBNAIL_URL, thumbnailURL);
+                    stepValues.put(StepEntry.COLUMN_STEP_RECIPE_ID, recipeId);
 
                     stepValuesArray[k] = stepValues;
                 }
@@ -107,8 +108,6 @@ public final class JSONUtility {
                 ContentValues values = new ContentValues();
                 values.put(RecipeEntry.COLUMN_RECIPE_ID, recipeId);
                 values.put(RecipeEntry.COLUMN_RECIPE_NAME, recipeName);
-                //values.put(RecipeEntry.COLUMN_RECIPE_INGREDIENTS_ID, recipeId);
-                //values.put(RecipeEntry.COLUMN_RECIPE_STEPS_ID, recipeId);
                 values.put(RecipeEntry.COLUMN_RECIPE_SERVINGS, recipeServings);
                 values.put(RecipeEntry.COLUMN_RECIPE_IMAGE, recipeImage);
 

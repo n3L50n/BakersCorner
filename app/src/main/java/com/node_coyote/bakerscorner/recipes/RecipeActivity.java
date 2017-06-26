@@ -4,11 +4,13 @@ import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +23,9 @@ import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
 import com.node_coyote.bakerscorner.utility.NetworkUtility;
 
-public class RecipeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class RecipeActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor>,
+        RecipeAdapter.RecipeOnClickHandler{
 
     public static final String LOG_TAG = RecipeActivity.class.getSimpleName();
 
@@ -131,6 +135,14 @@ public class RecipeActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mRecipeAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onClick(Uri recipeUri) {
+
+        Intent intent = new Intent(this, RecipeDetailActivity.class);
+        intent.setData(recipeUri);
+        startActivity(intent);
     }
 
     public class FetchRecipeData extends AsyncTask<String, Void, ContentValues[]> {

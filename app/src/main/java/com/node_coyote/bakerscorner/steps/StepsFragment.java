@@ -1,5 +1,6 @@
 package com.node_coyote.bakerscorner.steps;
 
+import android.content.Intent;
 import android.support.v4.app.LoaderManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -36,17 +37,9 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
             StepEntry.COLUMN_SHORT_DESCRIPTION,
             StepEntry.COLUMN_DESCRIPTION,
             StepEntry.COLUMN_VIDEO_URL,
-            StepEntry.COLUMN_THUMBNAIL_URL
+            StepEntry.COLUMN_THUMBNAIL_URL,
+            StepEntry.COLUMN_STEP_RECIPE_ID
     };
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,8 +59,6 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
     public static StepsFragment newInstance(String param1, String param2) {
         StepsFragment fragment = new StepsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,8 +67,7 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            getArguments().getInt(StepEntry.COLUMN_STEP_RECIPE_ID);
         }
     }
 
@@ -86,6 +76,11 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
                              Bundle savedInstanceState) {
         View stepsContainer = inflater.inflate(R.layout.fragment_steps, container, false);
 
+//        Intent intent = stepsContainer.;
+//        if (intent != null) {
+//            mCurrentMovieUri = intent.getData();
+//        }
+
         mAdapter = new StepsCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         RecyclerView stepRecycler = (RecyclerView) stepsContainer.findViewById(R.id.steps_recycler_view);
@@ -93,9 +88,6 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
         stepRecycler.setLayoutManager(manager);
 
         getLoaderManager().initLoader(STEPS_LOADER, null, this);
-
-        // Inflate the layout for this fragment
-        // TODO initialize player here
 
         return stepsContainer;
     }

@@ -1,6 +1,7 @@
 package com.node_coyote.bakerscorner.ingredients;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +23,7 @@ class IngredientCursorAdapter extends RecyclerView.Adapter<IngredientCursorAdapt
     private Cursor mCursor;
     private Context mContext;
 
-    IngredientCursorAdapter(Context context){
+    IngredientCursorAdapter(Context context) {
         mContext = context;
     }
 
@@ -30,31 +31,30 @@ class IngredientCursorAdapter extends RecyclerView.Adapter<IngredientCursorAdapt
     public IngredientAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View ingredientView = LayoutInflater.from(mContext).inflate(R.layout.ingredient_list_item, parent, false);
+
         return new IngredientAdapterViewHolder(ingredientView);
     }
 
     @Override
     public void onBindViewHolder(IngredientAdapterViewHolder holder, int position) {
 
-        mCursor.moveToPosition(position);
-//        if (mCursor.getColumnIndex(IngredientEntry.COLUMN_INGREDIENT_ID) ==
-//                mCursor.getColumnIndex(RecipeEntry.COLUMN_RECIPE_INGREDIENTS_ID)) {
+                mCursor.moveToPosition(position);
 
-            int ingredientColumnIndex = mCursor.getColumnIndex(IngredientEntry.COLUMN_INGREDIENT);
-            String ingredient = mCursor.getString(ingredientColumnIndex);
+                int ingredientColumnIndex = mCursor.getColumnIndex(IngredientEntry.COLUMN_INGREDIENT);
+                String ingredient = mCursor.getString(ingredientColumnIndex);
 
-            int quantityColumnIndex = mCursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY);
-            int quantity = mCursor.getInt(quantityColumnIndex);
+                int quantityColumnIndex = mCursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY);
+                int quantity = mCursor.getInt(quantityColumnIndex);
 
-            int measureColumnIndex = mCursor.getColumnIndex(IngredientEntry.COLUMN_MEASURE);
-            String measure = mCursor.getString(measureColumnIndex);
-            Log.v("Binding", ingredient);
+                int measureColumnIndex = mCursor.getColumnIndex(IngredientEntry.COLUMN_MEASURE);
+                String measure = mCursor.getString(measureColumnIndex);
+                Log.v("Binding", ingredient);
 
-            // TODO Butterknife
-            holder.mIngredientNameView.setText(ingredient);
-            holder.mQuantityAmountView.setText(String.valueOf(quantity));
-            holder.mMeasureAmountView.setText(measure);
- //       }
+                // TODO Butterknife
+                holder.mIngredientNameView.setText(ingredient);
+                holder.mQuantityAmountView.setText(String.valueOf(quantity));
+                holder.mMeasureAmountView.setText(measure);
+
     }
 
     @Override

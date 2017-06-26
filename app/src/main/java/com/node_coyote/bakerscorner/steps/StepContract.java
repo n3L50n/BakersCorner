@@ -40,6 +40,8 @@ public class StepContract {
 
         public static final String COLUMN_VIDEO_URL = "videoURL";
 
-        public static final String COLUMN_THUMBNAIL_URL = "thumbnailURL"; 
+        public static final String COLUMN_THUMBNAIL_URL = "thumbnailURL";
+
+        public static final String COLUMN_STEP_RECIPE_ID = "step_recipe_id";
     }
 }

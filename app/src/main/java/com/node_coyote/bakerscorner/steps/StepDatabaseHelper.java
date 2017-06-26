@@ -23,7 +23,8 @@ public class StepDatabaseHelper extends SQLiteOpenHelper {
             + StepEntry.COLUMN_SHORT_DESCRIPTION + " TEXT, "
             + StepEntry.COLUMN_DESCRIPTION + " TEXT, "
             + StepEntry.COLUMN_VIDEO_URL + " TEXT, "
-            + StepEntry.COLUMN_THUMBNAIL_URL + " TEXT);";
+            + StepEntry.COLUMN_THUMBNAIL_URL + " TEXT, "
+            + StepEntry.COLUMN_STEP_RECIPE_ID + " INTEGER);";
 
     public StepDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

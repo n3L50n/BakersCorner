@@ -47,7 +47,6 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
 
     @Override
     public StepsCursorAdapter.StepsCursorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View stepsHolder = LayoutInflater.from(mContext).inflate(R.layout.step_item, parent, false);
         return new StepsCursorViewHolder(stepsHolder);
     }
@@ -71,7 +70,11 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
 
         holder.mDescriptionView.setText(description);
 
-        holder.initializePlayer(Uri.parse(video));
+        if (!video.isEmpty() && video.length() != 0) {
+            holder.initializePlayer(Uri.parse(video));
+        } else {
+            holder.mExoPlayerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -124,7 +127,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
                 mExoPlayer.setPlayWhenReady(false);
             }
         }
-        
+
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
 

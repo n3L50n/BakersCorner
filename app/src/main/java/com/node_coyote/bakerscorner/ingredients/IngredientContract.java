@@ -44,8 +44,8 @@ public class IngredientContract {
              * Unique identifier for a set of ingredients (row) in the database
              */
             public static final String _ID = BaseColumns._ID;
-        
-            //public static final String COLUMN_INGREDIENT_ID = "ingredients_id";
+
+            public static final String COLUMN_INGREDIENT_ID = "ingredients_id";
 
             public static final String COLUMN_QUANTITY = "quantity";
 
