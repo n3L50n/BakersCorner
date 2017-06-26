@@ -15,23 +15,22 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 import com.node_coyote.bakerscorner.R;
-import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
 import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 
 /**
  * Created by node_coyote on 6/20/17.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdapterViewHolder> {
+public class RecipeCursorAdapter extends RecyclerView.Adapter<RecipeCursorAdapter.RecipeAdapterViewHolder> {
 
     private ContentValues[] mRecipeData;
     private Cursor mCursor;
-    private static final String RECIPE_ID_KEY = "RECIPE ID";
     private static final String ROW_ID_KEY = "ROW_ID";
+    private static final String RECIPE_NAME_KEY = "RECIPE_NAME";
     private static RecipeOnClickHandler mRecipeClickHandler = null;
 
 
-    RecipeAdapter(RecipeOnClickHandler  handler){
+    RecipeCursorAdapter(RecipeOnClickHandler  handler){
         mRecipeClickHandler = handler;
     }
 
@@ -49,6 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
         String recipeName = mCursor.getString(columnRecipeNameIndex);
         int servingsValue = mCursor.getInt(columnServingsIndex);
+
         // TODO clean this up
 //        String servings =  getString(R.string.recipe_servings_text) + " " + String.valueOf(servingsValue);
         String servings =  " " + String.valueOf(servingsValue);
@@ -91,16 +91,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View recipeView) {
 
             int adapterPosition = getAdapterPosition();
             Bundle bundle = new Bundle();
             mCursor.moveToPosition(adapterPosition);
 
-            int rowIdColumnIndex = mCursor.getColumnIndex(IngredientEntry._ID);
+            int rowIdColumnIndex = mCursor.getColumnIndex(RecipeEntry._ID);
             long rowId = mCursor.getLong(rowIdColumnIndex);
 
-            Uri uri = ContentUris.withAppendedId(IngredientEntry.CONTENT_URI, rowId);
+            int recipeNameColumnIndex = mCursor.getColumnIndex(RecipeEntry.COLUMN_RECIPE_NAME);
+            String recipeName = mCursor.getString(recipeNameColumnIndex);
+
+            if (recipeName != null) {
+                bundle.putString(RECIPE_NAME_KEY , recipeName);
+            }
+
+            Uri uri = ContentUris.withAppendedId(RecipeEntry.CONTENT_URI, rowId);
             mRecipeClickHandler.onClick(uri);
             Log.v("SENDING ROW ID", String.valueOf(rowId));
 
@@ -109,9 +116,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
             bundle.putLong(ROW_ID_KEY, rowId);
 
             // Go to our ViewPager with 2 fragments; Ingredients and Steps
-            Intent intent = new Intent( v.getContext(), RecipeDetailActivity.class);
+            Intent intent = new Intent( recipeView.getContext(), RecipeDetailActivity.class);
             intent.putExtras(bundle);
-            v.getContext().startActivity(intent);
+            recipeView.getContext().startActivity(intent);
         }
     }
 }

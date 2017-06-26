@@ -25,7 +25,7 @@ import com.node_coyote.bakerscorner.utility.NetworkUtility;
 
 public class RecipeActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>,
-        RecipeAdapter.RecipeOnClickHandler{
+        RecipeCursorAdapter.RecipeOnClickHandler{
 
     public static final String LOG_TAG = RecipeActivity.class.getSimpleName();
 
@@ -38,7 +38,7 @@ public class RecipeActivity extends AppCompatActivity
      *     longClick to remove.
      */
 
-    private RecipeAdapter mRecipeAdapter;
+    private RecipeCursorAdapter mRecipeCursorAdapter;
     private ContentValues[] mRecipeData;
     private static final int RECIPE_LOADER = 5;
     private static final String[] RECIPE_PROJECTION = {
@@ -55,11 +55,11 @@ public class RecipeActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // TODO Butterknife
-        mRecipeAdapter = new RecipeAdapter(this);
+        mRecipeCursorAdapter = new RecipeCursorAdapter(this);
         RecyclerView recipeRecycler = (RecyclerView) findViewById(R.id.recipe_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recipeRecycler.setLayoutManager(linearLayoutManager);
-        recipeRecycler.setAdapter(mRecipeAdapter);
+        recipeRecycler.setAdapter(mRecipeCursorAdapter);
         recipeRecycler.setHasFixedSize(true);
 
         if (checkForDatabase()){
@@ -67,9 +67,6 @@ public class RecipeActivity extends AppCompatActivity
         } else {
             getLoaderManager().restartLoader(RECIPE_LOADER, null, this);
         }
-
-        // Create recyclerView onClick ingredients and steps
-        // Call background thread.
     }
 
     /**
@@ -127,12 +124,12 @@ public class RecipeActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mRecipeAdapter.swapCursor(data);
+        mRecipeCursorAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mRecipeAdapter.swapCursor(null);
+        mRecipeCursorAdapter.swapCursor(null);
     }
 
     @Override
@@ -163,7 +160,7 @@ public class RecipeActivity extends AppCompatActivity
         protected void onPostExecute(ContentValues[] recipeData) {
             mRecipeData = recipeData;
             if (mRecipeData != null) {
-                mRecipeAdapter.setRecipeData(mRecipeData);
+                mRecipeCursorAdapter.setRecipeData(mRecipeData);
             }
         }
     }

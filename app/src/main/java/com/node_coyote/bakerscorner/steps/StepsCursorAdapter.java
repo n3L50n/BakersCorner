@@ -120,6 +120,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
                 mExoPlayer.addListener(this);
 
                 // Prepare the MediaSource.
+                // TODO WTF
                 String userAgent = Util.getUserAgent(mContext, "WTF");
                 MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                         mContext, userAgent), new DefaultExtractorsFactory(), null, null);

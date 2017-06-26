@@ -1,6 +1,5 @@
 package com.node_coyote.bakerscorner.ingredients;
 
-import android.content.Intent;
 import android.support.v4.app.LoaderManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.node_coyote.bakerscorner.R;
-import com.node_coyote.bakerscorner.recipes.RecipeDetailActivity;
 
 public class IngredientsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final int INGREDIENT_LOADER = 9;
-    private static final String RECIPE_ID_KEY = "RECIPE ID";
     private static final String ROW_ID_KEY = "ROW_ID";
     int INGREDIENT_ID;
 
@@ -47,9 +44,11 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
 
         Bundle bundle = getActivity().getIntent().getExtras();
         long rowId =  bundle.getLong(ROW_ID_KEY);
+
         Log.v("ROW ID", String.valueOf(rowId));
         INGREDIENT_ID = (int) (long) rowId;
         Log.v("INGREDIENT ID", String.valueOf(INGREDIENT_ID));
+
         RecyclerView ingredientsList = (RecyclerView) ingredientsView.findViewById(R.id.ingredients_recycler_view);
         mIngredientAdapter = new IngredientCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());

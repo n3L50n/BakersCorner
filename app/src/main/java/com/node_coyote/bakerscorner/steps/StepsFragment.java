@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,9 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
     StepsCursorAdapter mAdapter;
 
     public static final int STEPS_LOADER = 3;
+    private static final String ROW_ID_KEY = "ROW_ID";
+    private static final String RECIPE_NAME_KEY = "RECIPE_NAME";
+    int STEP_ID;
 
     String[] STEPS_PROJECTION = {
             StepEntry._ID,
@@ -76,22 +80,22 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
                              Bundle savedInstanceState) {
         View stepsContainer = inflater.inflate(R.layout.fragment_steps, container, false);
 
-//        Intent intent = stepsContainer.;
-//        if (intent != null) {
-//            mCurrentMovieUri = intent.getData();
-//        }
+        Bundle bundle = getActivity().getIntent().getExtras();
+        long rowId = bundle.getLong(ROW_ID_KEY);
+
+        String recipeName = bundle.getString(RECIPE_NAME_KEY);
+        getActivity().setTitle(recipeName);
+        STEP_ID = (int) (long) rowId;
 
         mAdapter = new StepsCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         RecyclerView stepRecycler = (RecyclerView) stepsContainer.findViewById(R.id.steps_recycler_view);
         stepRecycler.setAdapter(mAdapter);
         stepRecycler.setLayoutManager(manager);
-
         getLoaderManager().initLoader(STEPS_LOADER, null, this);
 
         return stepsContainer;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -105,11 +109,12 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
 
         switch (loaderId) {
             case STEPS_LOADER:
+                String selection = "step_recipe_id = " + STEP_ID;
                 return new android.support.v4.content.CursorLoader(
                         getContext(),
                         StepEntry.CONTENT_URI,
                         STEPS_PROJECTION,
-                        null,
+                        selection,
                         null,
                         null
                 );
