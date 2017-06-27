@@ -23,24 +23,21 @@ import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
 import com.node_coyote.bakerscorner.utility.NetworkUtility;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RecipeActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>,
         RecipeCursorAdapter.RecipeOnClickHandler{
 
-    public static final String LOG_TAG = RecipeActivity.class.getSimpleName();
+    @BindView(R.id.recipe_recycler_view) RecyclerView recipeRecycler;
 
-    /**
-     * Theme ideas.
-     * Loading Indicator: Spoon in a bowl
-     * Red and White checker theme.
-     * Yellow lined paper. (Stains, used)
-     * Paperclip fragments of a recipe to stay in the view until unpinned.
-     *     longClick to remove.
-     */
+    public static final String LOG_TAG = RecipeActivity.class.getSimpleName();
 
     private RecipeCursorAdapter mRecipeCursorAdapter;
     private ContentValues[] mRecipeData;
     private static final int RECIPE_LOADER = 5;
+
     private static final String[] RECIPE_PROJECTION = {
             RecipeEntry._ID,
             RecipeEntry.COLUMN_RECIPE_ID,
@@ -53,10 +50,9 @@ public class RecipeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        // TODO Butterknife
         mRecipeCursorAdapter = new RecipeCursorAdapter(this);
-        RecyclerView recipeRecycler = (RecyclerView) findViewById(R.id.recipe_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recipeRecycler.setLayoutManager(linearLayoutManager);
         recipeRecycler.setAdapter(mRecipeCursorAdapter);

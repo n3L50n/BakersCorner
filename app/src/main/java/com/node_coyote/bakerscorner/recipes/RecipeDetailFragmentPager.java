@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.ingredients.IngredientsFragment;
 import com.node_coyote.bakerscorner.steps.StepsFragment;
 
@@ -36,5 +37,16 @@ public class RecipeDetailFragmentPager extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 2;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position){
+            case 0:
+                return mContext.getString(R.string.ingredients_title);
+            case 1:
+                return mContext.getString(R.string.steps_title);
+        }
+        return null;
     }
 }

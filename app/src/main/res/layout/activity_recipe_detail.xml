@@ -3,11 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.node_coyote.bakerscorner.recipes.RecipeDetailActivity">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs"
+        app:tabMode="scrollable"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/recipe_detail_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
