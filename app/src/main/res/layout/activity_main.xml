@@ -9,8 +9,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
 
     <ImageButton
         android:id="@+id/empty_recipe_view"
@@ -21,6 +20,7 @@
         android:background="@drawable/empty_recipe" />
 
     <TextView
+        android:id="@+id/empty_app_name_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,6 +29,7 @@
         android:textSize="36sp" />
 
     <TextView
+        android:id="@+id/no_connection_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="64dp"

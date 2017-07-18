@@ -17,6 +17,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
@@ -31,6 +34,9 @@ public class RecipeActivity extends AppCompatActivity
         RecipeCursorAdapter.RecipeOnClickHandler{
 
     @BindView(R.id.recipe_recycler_view) RecyclerView recipeRecycler;
+    @BindView(R.id.empty_recipe_view) ImageButton emptyRecipe;
+    @BindView(R.id.empty_app_name_view) TextView emptyAppName;
+    @BindView(R.id.no_connection_view) TextView noConnection;
 
     public static final String LOG_TAG = RecipeActivity.class.getSimpleName();
 
@@ -57,6 +63,12 @@ public class RecipeActivity extends AppCompatActivity
         recipeRecycler.setLayoutManager(linearLayoutManager);
         recipeRecycler.setAdapter(mRecipeCursorAdapter);
         recipeRecycler.setHasFixedSize(true);
+        emptyRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchRecipeData();
+            }
+        });
 
         if (checkForDatabase()){
             fetchRecipeData();
@@ -83,6 +95,29 @@ public class RecipeActivity extends AppCompatActivity
     }
 
     /**
+     * Helper method to bundle up view toggling.
+     * This one dismisses the items that show when there is no internet and replaces them with our recipes.
+     */
+    private void showRecipes(){
+        emptyRecipe.setVisibility(View.INVISIBLE);
+        emptyAppName.setVisibility(View.INVISIBLE);
+        noConnection.setVisibility(View.INVISIBLE);
+        recipeRecycler.setVisibility(View.VISIBLE);
+
+    }
+
+    /**
+     * Helper method to bundle up view toggling.
+     * This one informs our users that there is no internet and hides the empty recipes.
+     */
+    private void showEmptyView(){
+        emptyRecipe.setVisibility(View.VISIBLE);
+        emptyAppName.setVisibility(View.VISIBLE);
+        noConnection.setVisibility(View.VISIBLE);
+        recipeRecycler.setVisibility(View.GONE);
+    }
+
+    /**
      * This method runs our network operations on a background thread.
      * It also helps us decide what should be shown in the view depending on internet connection.
      */
@@ -92,12 +127,9 @@ public class RecipeActivity extends AppCompatActivity
         if (networkInfo != null && networkInfo.isConnected()) {
             new FetchRecipeData().execute();
             getLoaderManager().initLoader(RECIPE_LOADER, null, this);
-            //mEmpty.setText(R.string.nothing);
-            //showSchoolRoster();
-
+            showRecipes();
         } else {
-//            showLoadingIndicator();
-//            mEmpty.setText(R.string.no_internet);
+            showEmptyView();
         }
     }
 
@@ -121,6 +153,7 @@ public class RecipeActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mRecipeCursorAdapter.swapCursor(data);
+        if (data.getCount() != 0) showRecipes();
     }
 
     @Override
