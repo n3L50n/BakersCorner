@@ -1,5 +1,6 @@
 package com.node_coyote.bakerscorner.recipes;
 
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -50,8 +51,10 @@ public class RecipeCursorAdapter extends RecyclerView.Adapter<RecipeCursorAdapte
         int servingsValue = mCursor.getInt(columnServingsIndex);
 
         // TODO clean this up
-//        String servings =  getString(R.string.recipe_servings_text) + " " + String.valueOf(servingsValue);
-        String servings =  " " + String.valueOf(servingsValue);
+        String l = "Servings";
+        //String servings =  String.valueOf(servingsValue);
+        String servings = l + " " + String.valueOf(servingsValue);
+
 
         holder.mRecipeNameView.setText(recipeName);
         holder.mServingsView.setText(servings);
