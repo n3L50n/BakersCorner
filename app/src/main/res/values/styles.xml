@@ -8,4 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EmptyMainImageButtonStyle">
+        <item name="android:layout_width">@dimen/empty_main_image_width</item>
+        <item name="android:layout_height">@dimen/empty_main_image_height</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/empty_main_image_margin_top</item>
+        <item name="android:background">@drawable/empty_recipe</item>
+    </style>
+
+    <style name="EmptyMainTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:text">@string/app_name</item>
+        <item name="android:textColor">@color/empty_main_title_color</item>
+        <item name="android:textSize">@dimen/empty_main_title_text_size</item>
+    </style>
+
+    <style name="EmptyMainNoConnectionStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/no_connection_text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">@dimen/no_connection_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/no_connection_margin_right</item>
+    </style>
+
 </resources>
