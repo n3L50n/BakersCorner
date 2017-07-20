@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/recipe_exo_player"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginTop="16dp"
         android:visibility="gone" />
 

@@ -1,18 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ingredients_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.node_coyote.bakerscorner.ingredients.IngredientsFragment">
 
     <ImageButton
-        android:id="@+id/play_video_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ingredients_logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:background="@drawable/recipe_image_circle"
+        android:background="@drawable/ingredients"
         android:contentDescription="@string/ingredient_image_content_description" />
 
     <android.support.v7.widget.RecyclerView
@@ -20,4 +18,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+</FrameLayout>
