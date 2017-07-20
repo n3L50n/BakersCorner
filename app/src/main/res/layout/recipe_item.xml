@@ -22,7 +22,6 @@
         android:contentDescription="@string/recipe_image_content_description"
         android:src="@drawable/bakers_corner_logo" />
 
-
     <TextView
         android:id="@+id/recipe_title_view"
         android:layout_width="wrap_content"
@@ -44,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageButton
+            <ImageView
+                android:id="@+id/ingredient_image_view"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/ingredients" />
@@ -64,12 +64,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/steps_image_button"
+            <ImageView
+                android:id="@+id/steps_image_view"
                 android:layout_width="50dp"
                 android:layout_height="75dp"
                 android:background="@drawable/steps" />
-
 
             <TextView
                 android:id="@+id/steps_view"
@@ -81,8 +80,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </FrameLayout>

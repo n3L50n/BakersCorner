@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.node_coyote.bakerscorner.steps.StepsFragment">
 
-    <ImageButton
-        android:id="@+id/steps_logo"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:background="@drawable/steps"
-        android:contentDescription="@string/steps_image_content_description" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/steps_recycler_view"
         android:layout_width="match_parent"

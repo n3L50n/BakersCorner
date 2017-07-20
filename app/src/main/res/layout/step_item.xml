@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textColor="@android:color/black"
+        android:textColor="#555555"
         android:textSize="18sp" />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
@@ -21,6 +21,7 @@
         android:visibility="gone" />
 
     <ImageView
+        android:contentDescription="@string/steps_thumbnail_content_description"
         android:id="@+id/step_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
