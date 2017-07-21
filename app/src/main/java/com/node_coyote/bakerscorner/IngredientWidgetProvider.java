@@ -12,7 +12,7 @@ import com.node_coyote.bakerscorner.recipes.RecipeActivity;
 /**
  * Implementation of App Widget functionality.
  */
-public class RecipeWidget extends AppWidgetProvider {
+public class IngredientWidgetProvider extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
