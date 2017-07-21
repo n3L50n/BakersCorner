@@ -22,7 +22,7 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
         views.setTextViewText(R.id.widget_recipe_name_text_view, widgetText);
 
         views.setOnClickPendingIntent(R.id.widget_recipe_name_text_view, pendingIntent);
