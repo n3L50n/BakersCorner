@@ -25,7 +25,7 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
         views.setTextViewText(R.id.widget_recipe_name_text_view, widgetText);
 
-        views.setOnClickPendingIntent(R.id.widget_recipe_name_text_view, pendingIntent);
+        views.setOnClickPendingIntent(R.id.ingredient_widget, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
