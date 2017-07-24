@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".IngredientWidgetService" />
+
         <provider
             android:name=".recipes.RecipeProvider"
             android:authorities="com.node_coyote.bakerscorner.recipes"
