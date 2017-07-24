@@ -1,6 +1,7 @@
 package com.node_coyote.bakerscorner.recipes;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -26,6 +27,8 @@ import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
 import com.node_coyote.bakerscorner.utility.NetworkUtility;
+import com.node_coyote.bakerscorner.widget.CurrentRecipeContract;
+import com.node_coyote.bakerscorner.widget.CurrentRecipeDatabaseHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -165,11 +168,37 @@ public class RecipeActivity extends AppCompatActivity
     @Override
     public void onClick(Uri recipeUri) {
 
+        String og = recipeUri.toString();
+        String ng = og.substring(55);
+        Integer lg = Integer.parseInt(ng);
         Intent intent = new Intent(this, RecipeDetailActivity.class);
         intent.setData(recipeUri);
         startActivity(intent);
 
-        
+        Log.v("onclickd", recipeUri.toString());
+        ContentValues values = new ContentValues();
+        values.put(CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID, lg);
+        Uri uri = ContentUris.withAppendedId(CurrentRecipeContract.CurrentRecipeEntry.CONTENT_URI, 1);
+        if (checkCurrent()) {
+            getContentResolver().insert(uri, values);
+        } else {
+            getContentResolver().update(uri, values, null, null);
+        }
+
+        getContentResolver().notifyChange(CurrentRecipeContract.CurrentRecipeEntry.CONTENT_URI, null);
+    }
+
+    boolean checkCurrent() {
+        boolean empty = true;
+        CurrentRecipeDatabaseHelper helper = new CurrentRecipeDatabaseHelper(RecipeActivity.this);
+        SQLiteDatabase database = helper.getReadableDatabase();
+        String check = "SELECT COUNT(*) FROM current";
+        Cursor cursor = database.rawQuery(check, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            empty = (cursor.getInt (0) == 0);
+        }
+        cursor.close();
+        return empty;
     }
 
     public class FetchRecipeData extends AsyncTask<String, Void, ContentValues[]> {

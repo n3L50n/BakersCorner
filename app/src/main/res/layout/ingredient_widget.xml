@@ -1,13 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f5f5f5"
     android:id="@+id/ingredient_widget"
+    android:elevation="2dp"
     android:padding="@dimen/widget_margin">
-
-    <ImageView
-        android:src="@drawable/ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/widget_recipe_name_text_view"
@@ -15,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/ingredients_title"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textColor="#000"
+        android:textSize="18sp"
         android:textStyle="bold|italic" />
 
     <TextView
@@ -25,6 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textColor="#ffffff"
-        android:textSize="24sp"/>
+        android:textSize="16sp"/>
 
 </FrameLayout>

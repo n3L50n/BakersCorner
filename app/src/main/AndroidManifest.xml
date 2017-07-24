@@ -39,6 +39,11 @@
             android:authorities="com.node_coyote.bakerscorner.steps"
             android:enabled="true"
             android:exported="false" />
+        <provider
+            android:authorities="com.node_coyote.bakerscorner.widget"
+            android:name=".widget.CurrentRecipeProvider"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity android:name=".recipes.RecipeDetailActivity">
             <meta-data

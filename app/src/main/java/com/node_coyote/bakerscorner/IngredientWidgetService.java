@@ -12,10 +12,13 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.node_coyote.bakerscorner.ingredients.IngredientContract;
+import com.node_coyote.bakerscorner.recipes.RecipeContract;
+import com.node_coyote.bakerscorner.widget.CurrentRecipeContract;
 
 import static com.node_coyote.bakerscorner.ingredients.IngredientContract.BASE_CONTENT_URI;
 import static com.node_coyote.bakerscorner.ingredients.IngredientContract.PATH_INGREDIENT;
-
+import static com.node_coyote.bakerscorner.recipes.RecipeContract.PATH_RECIPE;
+import static com.node_coyote.bakerscorner.widget.CurrentRecipeContract.PATH_CURRENT;
 /**
  * Created by node_coyote on 7/21/17.
  */
@@ -69,28 +72,75 @@ public class IngredientWidgetService extends IntentService {
     private void handleActionUpdateIngredientWidgets() {
         Log.v("handleAction", "updatin");
 
-        Uri INGREDIENTS_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
-        Cursor cursor =  getContentResolver().query(
+        Uri CURRENT_URI = com.node_coyote.bakerscorner.widget.CurrentRecipeContract.BASE_CONTENT_URI.buildUpon().appendPath(PATH_CURRENT).build();
+
+        String[] currentProjection = {CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID};
+        Cursor ello = getContentResolver().query(
+                CURRENT_URI,
+                currentProjection,
+                null,
+                null,
+                null
+        );
+        int currentId = 1;
+        if (ello != null && ello.getCount() > 0) {
+            ello.moveToFirst();
+            int columnIndex = ello.getColumnIndex(CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID);
+            currentId = ello.getInt(columnIndex);
+            Log.v("ELLO", String.valueOf(currentId));
+            ello.close();
+        }
+
+        Uri RECIPE_NAME_URI = com.node_coyote.bakerscorner.recipes.RecipeContract.BASE_CONTENT_URI.buildUpon().appendPath(PATH_RECIPE).build();
+        String[] recipeNameProjection = {RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME};
+        Cursor recipeCursor =  getContentResolver().query(
+                RECIPE_NAME_URI,
+                recipeNameProjection,
+                null,
+                null,
+                null);
+
+        String recipeName = "Recipe";
+        if (recipeCursor != null && recipeCursor.getCount() > 0) {
+            recipeCursor.moveToPosition(currentId - 1);
+            int columnIndex = recipeCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME);
+            recipeName = recipeCursor.getString(columnIndex);
+            Log.v("cursorWidgetUpdated", recipeName);
+
+            recipeCursor.close();
+
+        }
+
+        Uri INGREDIENTS_URI = com.node_coyote.bakerscorner.ingredients.IngredientContract.BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
+        Cursor ingredientCursor =  getContentResolver().query(
                 INGREDIENTS_URI,
                 INGREDIENT_PROJECTION,
                 null,
                 null,
                 null);
 
-        String ingredient = "Doh";
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT);
-            ingredient = cursor.getString(columnIndex);
-            Log.v("cursorWidgetUpdated", ingredient);
+        String ingredients = "Doh";
 
-            cursor.close();
+        if (ingredientCursor != null && ingredientCursor.getCount() > 0) {
+            
+            ingredientCursor.moveToPosition(currentId - 1);
+            int ingredientNameColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT);
+            int measureColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_MEASURE);
+            int quantityColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_QUANTITY);
+            String ingredient = ingredientCursor.getString(ingredientNameColumnIndex);
+            String measure = ingredientCursor.getString(measureColumnIndex);
+            int quantity = ingredientCursor.getInt(quantityColumnIndex);
+            ingredients = recipeName + "\n" + ingredient + " " + measure + " " + quantity + "\n";
+            //TODO where position == ingredient id
+            Log.v("cursorWidgetUpdated", ingredients);
+
+            ingredientCursor.close();
 
         }
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, IngredientWidgetProvider.class));
-        IngredientWidgetProvider.updateIngredientWidgets(this, appWidgetManager, ingredient, appWidgetIds);
+        IngredientWidgetProvider.updateIngredientWidgets(this, appWidgetManager, ingredients, appWidgetIds);
     }
 
     @Override
