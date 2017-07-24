@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.node_coyote.bakerscorner.IngredientWidgetService;
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
@@ -167,6 +168,8 @@ public class RecipeActivity extends AppCompatActivity
         Intent intent = new Intent(this, RecipeDetailActivity.class);
         intent.setData(recipeUri);
         startActivity(intent);
+
+        
     }
 
     public class FetchRecipeData extends AsyncTask<String, Void, ContentValues[]> {

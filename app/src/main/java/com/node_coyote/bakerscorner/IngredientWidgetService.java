@@ -82,7 +82,7 @@ public class IngredientWidgetService extends IntentService {
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT);
             ingredient = cursor.getString(columnIndex);
-            Log.v("WIDGET PROVDR", ingredient);
+            Log.v("cursorWidgetUpdated", ingredient);
 
             cursor.close();
 
@@ -96,17 +96,18 @@ public class IngredientWidgetService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-        Log.v("handling", intent.getAction());
-        handleActionUpdateIngredientWidgets();
+        if (intent != null) {
+            final String action = intent.getAction();
 
-//        if (intent != null) {
-//            final String action = intent.getAction();
-//
-//            if (ACTION_UPDATE_INGREDIENTS.equals(action)) {
-//                handleActionUpdateIngredients();
-//            } else if (ACTION_UPDATE_INGREDIENTS_WIDGET.equals(action)) {
-//                handleActionUpdateIngredientWidgets();
-//            }
-//        }
+            if (ACTION_UPDATE_INGREDIENTS.equals(action)) {
+                handleActionUpdateIngredients();
+                Log.v("handling", action);
+
+            } else if (ACTION_UPDATE_INGREDIENTS_WIDGET.equals(action)) {
+                handleActionUpdateIngredientWidgets();
+                Log.v("handling", action);
+
+            }
+        }
     }
 }

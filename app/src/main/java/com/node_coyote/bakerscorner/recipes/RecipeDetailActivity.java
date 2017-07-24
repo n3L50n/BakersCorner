@@ -25,8 +25,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         RecipeDetailFragmentPager adapter = new RecipeDetailFragmentPager(this, getSupportFragmentManager());
         recipePager.setAdapter(adapter);
-
-        // Add Tabs to allow clear navigation
         tabLayout.setupWithViewPager(recipePager);
     }
 }
