@@ -122,7 +122,7 @@ public class IngredientWidgetService extends IntentService {
         String ingredients = "Doh";
 
         if (ingredientCursor != null && ingredientCursor.getCount() > 0) {
-            
+
             ingredientCursor.moveToPosition(currentId - 1);
             int ingredientNameColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT);
             int measureColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_MEASURE);

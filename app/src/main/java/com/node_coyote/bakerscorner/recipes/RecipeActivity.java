@@ -201,6 +201,24 @@ public class RecipeActivity extends AppCompatActivity
         return empty;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        IngredientWidgetService.startActionUpdateIngredientWidgets(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        IngredientWidgetService.startActionUpdateIngredientWidgets(getApplicationContext());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        IngredientWidgetService.startActionUpdateIngredientWidgets(getApplicationContext());
+    }
+
     public class FetchRecipeData extends AsyncTask<String, Void, ContentValues[]> {
 
         @Override
