@@ -1,4 +1,4 @@
-package com.node_coyote.bakerscorner;
+package com.node_coyote.bakerscorner.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -6,8 +6,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.RemoteViews;
 
+import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.recipes.RecipeActivity;
 
 /**
@@ -15,25 +17,20 @@ import com.node_coyote.bakerscorner.recipes.RecipeActivity;
  */
 public class IngredientWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String ingredient,
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String recipeName,
                                 int appWidgetId) {
 
         Intent intent = new Intent(context, RecipeActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
-        views.setTextViewText(R.id.widget_recipe_name_text_view, ingredient);
-        Log.v("WIDGET PROVDR", ingredient);
-        views.setOnClickPendingIntent(R.id.ingredient_widget, pendingIntent);
+        RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
+        widget.setTextViewText(R.id.widget_recipe_name_text_view, recipeName);
+        widget.setOnClickPendingIntent(R.id.ingredient_widget, pendingIntent);
+        widget.setRemoteAdapter(R.id.widget_ingredients_list_view, new Intent(context, IngredientRemoteViewsService.class));
+
         // Instruct the widget manager to update the widget
-
-        Intent updateIntent = new Intent(context, IngredientWidgetService.class);
-        updateIntent.setAction(IngredientWidgetService.ACTION_UPDATE_INGREDIENTS_WIDGET);
-        PendingIntent ingredientPendingIntent = PendingIntent.getService(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.ingredient_widget, ingredientPendingIntent);
-
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.updateAppWidget(appWidgetId, widget);
     }
 
     @Override
@@ -41,11 +38,12 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         Log.v("UPDATING", "YUP");
         IngredientWidgetService.startActionUpdateIngredientWidgets(context);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_list_view);
     }
 
-    public static void updateIngredientWidgets(Context context, AppWidgetManager appWidgetManager, String ingredient, int[] appWidgetIds) {
+    public static void updateIngredientWidgets(Context context, AppWidgetManager appWidgetManager, String recipeName, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, ingredient, appWidgetId);
+            updateAppWidget(context, appWidgetManager, recipeName, appWidgetId);
         }
     }
 

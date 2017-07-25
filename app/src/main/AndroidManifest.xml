@@ -22,28 +22,32 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".IngredientWidgetService" />
+        <service android:name=".widget.IngredientWidgetService" />
+        <service android:name=".widget.IngredientRemoteViewsService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <provider
             android:name=".recipes.RecipeProvider"
             android:authorities="com.node_coyote.bakerscorner.recipes"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
         <provider
             android:name=".ingredients.IngredientProvider"
             android:authorities="com.node_coyote.bakerscorner.ingredients"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
         <provider
             android:name=".steps.StepProvider"
             android:authorities="com.node_coyote.bakerscorner.steps"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
         <provider
             android:authorities="com.node_coyote.bakerscorner.widget"
             android:name=".widget.CurrentRecipeProvider"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
 
         <activity android:name=".recipes.RecipeDetailActivity">
             <meta-data
@@ -51,7 +55,7 @@
                 android:value=".recipes.RecipeActivity" />
         </activity>
 
-        <receiver android:name=".IngredientWidgetProvider">
+        <receiver android:name=".widget.IngredientWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

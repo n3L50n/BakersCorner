@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.node_coyote.bakerscorner.IngredientWidgetService;
+import com.node_coyote.bakerscorner.widget.IngredientWidgetService;
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.recipes.RecipeContract.RecipeEntry;
 import com.node_coyote.bakerscorner.utility.JSONUtility;
@@ -93,8 +93,9 @@ public class RecipeActivity extends AppCompatActivity
         Cursor cursor = database.rawQuery(check, null);
         if (cursor != null && cursor.moveToFirst()) {
             empty = (cursor.getInt (0) == 0);
+            cursor.close();
         }
-        cursor.close();
+
         return empty;
     }
 
@@ -196,8 +197,8 @@ public class RecipeActivity extends AppCompatActivity
         Cursor cursor = database.rawQuery(check, null);
         if (cursor != null && cursor.moveToFirst()) {
             empty = (cursor.getInt (0) == 0);
+            cursor.close();
         }
-        cursor.close();
         return empty;
     }
 

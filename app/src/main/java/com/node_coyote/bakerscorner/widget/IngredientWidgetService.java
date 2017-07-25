@@ -1,9 +1,8 @@
-package com.node_coyote.bakerscorner;
+package com.node_coyote.bakerscorner.widget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,9 +10,8 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.node_coyote.bakerscorner.ingredients.IngredientContract;
+import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
 import com.node_coyote.bakerscorner.recipes.RecipeContract;
-import com.node_coyote.bakerscorner.widget.CurrentRecipeContract;
 
 import static com.node_coyote.bakerscorner.ingredients.IngredientContract.BASE_CONTENT_URI;
 import static com.node_coyote.bakerscorner.ingredients.IngredientContract.PATH_INGREDIENT;
@@ -27,15 +25,7 @@ public class IngredientWidgetService extends IntentService {
 
     public static final String ACTION_UPDATE_INGREDIENTS = "com.node_coyote.bakerscorner.action.update_ingredients";
     public static final String ACTION_UPDATE_INGREDIENTS_WIDGET = "com.node_coyote.bakerscorner.action.update_ingredients_widgets";
-
-    String[] INGREDIENT_PROJECTION = {
-            IngredientContract.IngredientEntry._ID,
-            IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID,
-            IngredientContract.IngredientEntry.COLUMN_QUANTITY,
-            IngredientContract.IngredientEntry.COLUMN_MEASURE,
-            IngredientContract.IngredientEntry.COLUMN_INGREDIENT
-
-    };
+    private static final int CURRENT_ID_COLUMN = 0;
 
     /**
      * Creates an IntentService.  Invoked by subclass's constructor.
@@ -59,36 +49,41 @@ public class IngredientWidgetService extends IntentService {
     }
 
     private void handleActionUpdateIngredients() {
-        Uri INGREDIENTS_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
-        getContentResolver().query(
-                INGREDIENTS_URI,
-                INGREDIENT_PROJECTION,
-                null,
-                null,
-                null);
+//        Uri INGREDIENTS_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
+//        getContentResolver().query(
+//                INGREDIENTS_URI,
+//                INGREDIENT_PROJECTION,
+//                null,
+//                null,
+//                null);
 
     }
 
     private void handleActionUpdateIngredientWidgets() {
-        Log.v("handleAction", "updatin");
 
         Uri CURRENT_URI = com.node_coyote.bakerscorner.widget.CurrentRecipeContract.BASE_CONTENT_URI.buildUpon().appendPath(PATH_CURRENT).build();
 
-        String[] currentProjection = {CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID};
-        Cursor ello = getContentResolver().query(
+        String[] currentProjection = {
+                CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID
+        };
+
+        Cursor currentRecipeCursor = getContentResolver().query(
                 CURRENT_URI,
                 currentProjection,
                 null,
                 null,
                 null
         );
-        int currentId = 1;
-        if (ello != null && ello.getCount() > 0) {
-            ello.moveToFirst();
-            int columnIndex = ello.getColumnIndex(CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID);
-            currentId = ello.getInt(columnIndex);
-            Log.v("ELLO", String.valueOf(currentId));
-            ello.close();
+
+
+        int currentId;
+        if (currentRecipeCursor != null && currentRecipeCursor.getCount() > 0) {
+            currentRecipeCursor.moveToFirst();
+            currentId = currentRecipeCursor.getInt(CURRENT_ID_COLUMN);
+            Log.v("CurrentRecipeCursorId", String.valueOf(currentId));
+            currentRecipeCursor.close();
+        } else {
+            return;
         }
 
         Uri RECIPE_NAME_URI = com.node_coyote.bakerscorner.recipes.RecipeContract.BASE_CONTENT_URI.buildUpon().appendPath(PATH_RECIPE).build();
@@ -100,47 +95,20 @@ public class IngredientWidgetService extends IntentService {
                 null,
                 null);
 
-        String recipeName = "Recipe";
+        String recipeName;
         if (recipeCursor != null && recipeCursor.getCount() > 0) {
             recipeCursor.moveToPosition(currentId - 1);
             int columnIndex = recipeCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME);
             recipeName = recipeCursor.getString(columnIndex);
             Log.v("cursorWidgetUpdated", recipeName);
-
             recipeCursor.close();
-
-        }
-
-        Uri INGREDIENTS_URI = com.node_coyote.bakerscorner.ingredients.IngredientContract.BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
-        Cursor ingredientCursor =  getContentResolver().query(
-                INGREDIENTS_URI,
-                INGREDIENT_PROJECTION,
-                null,
-                null,
-                null);
-
-        String ingredients = "Doh";
-
-        if (ingredientCursor != null && ingredientCursor.getCount() > 0) {
-
-            ingredientCursor.moveToPosition(currentId - 1);
-            int ingredientNameColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT);
-            int measureColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_MEASURE);
-            int quantityColumnIndex = ingredientCursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_QUANTITY);
-            String ingredient = ingredientCursor.getString(ingredientNameColumnIndex);
-            String measure = ingredientCursor.getString(measureColumnIndex);
-            int quantity = ingredientCursor.getInt(quantityColumnIndex);
-            ingredients = recipeName + "\n" + ingredient + " " + measure + " " + quantity + "\n";
-            //TODO where position == ingredient id
-            Log.v("cursorWidgetUpdated", ingredients);
-
-            ingredientCursor.close();
-
+        } else {
+            return;
         }
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, IngredientWidgetProvider.class));
-        IngredientWidgetProvider.updateIngredientWidgets(this, appWidgetManager, ingredients, appWidgetIds);
+        IngredientWidgetProvider.updateIngredientWidgets(this, appWidgetManager, recipeName, appWidgetIds);
     }
 
     @Override
