@@ -38,6 +38,7 @@ public class IngredientRemoteViewsService extends RemoteViewsService {
         return new RemoteViewsFactory() {
 
             private Cursor ingredientsCursor = null;
+            private int currentId = 1;
 
             @Override
             public void onCreate() {
@@ -61,15 +62,14 @@ public class IngredientRemoteViewsService extends RemoteViewsService {
                         null,
                         null
                 );
-                // TODO prettify
-                int currentId = 1;
+
                 if (currentRecipeCursor != null && currentRecipeCursor.getCount() > 0) {
                     currentRecipeCursor.moveToFirst();
                     int columnIndex = currentRecipeCursor.getColumnIndex(CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID);
                     currentId = currentRecipeCursor.getInt(columnIndex);
-                    Log.v("JELLO", String.valueOf(currentId));
-//                    currentRecipeCursor.close();
+                    currentRecipeCursor.close();
                 }
+
 
                 Uri ingredientsUri = BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
                 String selection = " ingredients_id = " + currentId;
@@ -102,22 +102,22 @@ public class IngredientRemoteViewsService extends RemoteViewsService {
                         || !ingredientsCursor.moveToPosition(position)) {
                     return null;
                 }
-                Log.v("getViewAt", String.valueOf(position));
+
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_ingredient_list_item);
 
                 if (ingredientsCursor != null && ingredientsCursor.getCount() > 0) {
-                    if (ingredientsCursor.moveToNext() ) {
-                        int ingredientNameColumnIndex = ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_INGREDIENT);
-                        int measureColumnIndex = ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_MEASURE);
-                        int quantityColumnIndex = ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY);
-                        String ingredient = ingredientsCursor.getString(ingredientNameColumnIndex);
-                        String measure = ingredientsCursor.getString(measureColumnIndex);
-                        int quantity = ingredientsCursor.getInt(quantityColumnIndex);
-                        views.setTextViewText(R.id.widget_list_item_ingredient, ingredient);
-                        views.setTextViewText(R.id.widget_list_item_measure, measure);
-                        Log.v("getViewAtIng", ingredient);
-                        views.setTextViewText(R.id.widget_list_item_quantity, String.valueOf(quantity));
-//                        ingredientsCursor.close();
+                    if (ingredientsCursor.moveToPosition(position)) {
+                            int ingredientNameColumnIndex = ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_INGREDIENT);
+                            int measureColumnIndex = ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_MEASURE);
+                            int quantityColumnIndex = ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY);
+
+                            String ingredient = ingredientsCursor.getString(ingredientNameColumnIndex);
+                            String measure = ingredientsCursor.getString(measureColumnIndex);
+                            int quantity = ingredientsCursor.getInt(quantityColumnIndex);
+
+                            views.setTextViewText(R.id.widget_list_item_ingredient, ingredient);
+                            views.setTextViewText(R.id.widget_list_item_measure, measure);
+                            views.setTextViewText(R.id.widget_list_item_quantity, String.valueOf(quantity));
                     }
                 }
 

@@ -10,10 +10,11 @@
         android:id="@+id/widget_recipe_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:padding="@dimen/widget_margin"
+        android:layout_margin="@dimen/widget_recipe_name_padding"
         android:text="@string/ingredients_title"
-        android:textColor="#f5f5f5"
-        android:textSize="24sp"/>
+        android:textColor="@color/widget_recipe_name_text_color"
+        android:textSize="@dimen/widget_recipe_name_text_size"/>
 
     <ListView
         android:id="@+id/widget_ingredients_list_view"

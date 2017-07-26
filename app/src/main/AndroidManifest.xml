@@ -17,16 +17,16 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service android:name=".widget.IngredientWidgetService" />
-        <service android:name=".widget.IngredientRemoteViewsService"
+        <service
+            android:name=".widget.IngredientRemoteViewsService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <provider
             android:name=".recipes.RecipeProvider"
@@ -44,8 +44,8 @@
             android:enabled="true"
             android:exported="true" />
         <provider
-            android:authorities="com.node_coyote.bakerscorner.widget"
             android:name=".widget.CurrentRecipeProvider"
+            android:authorities="com.node_coyote.bakerscorner.widget"
             android:enabled="true"
             android:exported="true" />
 

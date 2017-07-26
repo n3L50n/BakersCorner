@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.ingredients.IngredientContract.IngredientEntry;
 import com.node_coyote.bakerscorner.recipes.RecipeContract;
 
@@ -23,7 +24,6 @@ import static com.node_coyote.bakerscorner.widget.CurrentRecipeContract.PATH_CUR
 
 public class IngredientWidgetService extends IntentService {
 
-    public static final String ACTION_UPDATE_INGREDIENTS = "com.node_coyote.bakerscorner.action.update_ingredients";
     public static final String ACTION_UPDATE_INGREDIENTS_WIDGET = "com.node_coyote.bakerscorner.action.update_ingredients_widgets";
     private static final int CURRENT_ID_COLUMN = 0;
 
@@ -34,29 +34,10 @@ public class IngredientWidgetService extends IntentService {
         super("IngredientWidgetService");
     }
 
-    public static void startActionUpdateIngredients(Context context) {
-        Intent intent = new Intent(context, IngredientWidgetService.class);
-        intent.setAction(ACTION_UPDATE_INGREDIENTS);
-        context.startService(intent);
-    }
-
     public static void startActionUpdateIngredientWidgets(Context context) {
-        Log.v("startingHandl", "HANDLIN");
         Intent intent = new Intent(context, IngredientWidgetService.class);
         intent.setAction(ACTION_UPDATE_INGREDIENTS_WIDGET);
-        Log.v("ActionUpdate", ACTION_UPDATE_INGREDIENTS_WIDGET);
         context.startService(intent);
-    }
-
-    private void handleActionUpdateIngredients() {
-//        Uri INGREDIENTS_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_INGREDIENT).build();
-//        getContentResolver().query(
-//                INGREDIENTS_URI,
-//                INGREDIENT_PROJECTION,
-//                null,
-//                null,
-//                null);
-
     }
 
     private void handleActionUpdateIngredientWidgets() {
@@ -80,7 +61,6 @@ public class IngredientWidgetService extends IntentService {
         if (currentRecipeCursor != null && currentRecipeCursor.getCount() > 0) {
             currentRecipeCursor.moveToFirst();
             currentId = currentRecipeCursor.getInt(CURRENT_ID_COLUMN);
-            Log.v("CurrentRecipeCursorId", String.valueOf(currentId));
             currentRecipeCursor.close();
         } else {
             return;
@@ -100,7 +80,6 @@ public class IngredientWidgetService extends IntentService {
             recipeCursor.moveToPosition(currentId - 1);
             int columnIndex = recipeCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME);
             recipeName = recipeCursor.getString(columnIndex);
-            Log.v("cursorWidgetUpdated", recipeName);
             recipeCursor.close();
         } else {
             return;
@@ -109,6 +88,7 @@ public class IngredientWidgetService extends IntentService {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, IngredientWidgetProvider.class));
         IngredientWidgetProvider.updateIngredientWidgets(this, appWidgetManager, recipeName, appWidgetIds);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_list_view);
     }
 
     @Override
@@ -117,14 +97,8 @@ public class IngredientWidgetService extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
 
-            if (ACTION_UPDATE_INGREDIENTS.equals(action)) {
-                handleActionUpdateIngredients();
-                Log.v("handling", action);
-
-            } else if (ACTION_UPDATE_INGREDIENTS_WIDGET.equals(action)) {
+            if (ACTION_UPDATE_INGREDIENTS_WIDGET.equals(action)) {
                 handleActionUpdateIngredientWidgets();
-                Log.v("handling", action);
-
             }
         }
     }

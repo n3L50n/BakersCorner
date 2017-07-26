@@ -176,7 +176,6 @@ public class RecipeActivity extends AppCompatActivity
         intent.setData(recipeUri);
         startActivity(intent);
 
-        Log.v("onclickd", recipeUri.toString());
         ContentValues values = new ContentValues();
         values.put(CurrentRecipeContract.CurrentRecipeEntry.COLUMN_CURRENT_RECIPE_ID, lg);
         Uri uri = ContentUris.withAppendedId(CurrentRecipeContract.CurrentRecipeEntry.CONTENT_URI, 1);

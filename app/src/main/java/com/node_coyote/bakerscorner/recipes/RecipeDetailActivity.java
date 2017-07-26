@@ -16,7 +16,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @BindView(R.id.recipe_detail_view_pager) ViewPager recipePager;
     @BindView(R.id.sliding_tabs) TabLayout tabLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
