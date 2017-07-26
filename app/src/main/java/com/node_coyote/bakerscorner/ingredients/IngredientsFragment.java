@@ -43,8 +43,10 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
         View ingredientsView = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
         Bundle bundle = getActivity().getIntent().getExtras();
-        long rowId = bundle.getLong(ROW_ID_KEY);
-        INGREDIENT_ID = (int) (long) rowId;
+        if (bundle != null) {
+            long rowId = bundle.getLong(ROW_ID_KEY);
+            INGREDIENT_ID = (int) (long) rowId;
+        }
 
         RecyclerView ingredientsList = (RecyclerView) ingredientsView.findViewById(R.id.ingredients_recycler_view);
         mIngredientAdapter = new IngredientCursorAdapter(getContext());

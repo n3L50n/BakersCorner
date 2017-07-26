@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.exoplayer2.ExoPlayer;
 import com.node_coyote.bakerscorner.R;
 
 import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
@@ -79,11 +80,12 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
         View stepsContainer = inflater.inflate(R.layout.fragment_steps, container, false);
 
         Bundle bundle = getActivity().getIntent().getExtras();
-        long rowId = bundle.getLong(ROW_ID_KEY);
-
-        String recipeName = bundle.getString(RECIPE_NAME_KEY);
-        getActivity().setTitle(recipeName);
-        STEP_ID = (int) (long) rowId;
+        if (bundle != null) {
+            long rowId = bundle.getLong(ROW_ID_KEY);
+            String recipeName = bundle.getString(RECIPE_NAME_KEY);
+            getActivity().setTitle(recipeName);
+            STEP_ID = (int) (long) rowId;
+        }
 
         mAdapter = new StepsCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -93,6 +95,11 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
         getLoaderManager().initLoader(STEPS_LOADER, null, this);
 
         return stepsContainer;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -124,22 +131,6 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
         mAdapter.swapStepCursor(null);
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
     /**
      * This interface must be implemented by activities that contain this

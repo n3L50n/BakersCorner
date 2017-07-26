@@ -128,7 +128,13 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
                         mContext, userAgent), new DefaultExtractorsFactory(), null, null);
                 mExoPlayer.prepare(mediaSource);
                 mExoPlayer.setPlayWhenReady(false);
+            }
+        }
 
+        public void releasePlayer() {
+            if (mExoPlayer != null) {
+                mExoPlayer.release();
+                mExoPlayer = null;
             }
         }
 
