@@ -128,7 +128,7 @@ public class RecipeCursorAdapter extends RecyclerView.Adapter<RecipeCursorAdapte
             bundle.putLong(ROW_ID_KEY, rowId);
 
             // Go to our ViewPager with 2 fragments; Ingredients and Steps
-            Intent intent = new Intent( recipeView.getContext(), RecipeDetailActivityOld.class);
+            Intent intent = new Intent( recipeView.getContext(), RecipeDetailActivity.class);
             intent.putExtras(bundle);
             recipeView.getContext().startActivity(intent);
         }

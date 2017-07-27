@@ -36,23 +36,23 @@ import com.squareup.picasso.Picasso;
  * Created by node_coyote on 6/23/17.
  */
 
-public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.StepsCursorViewHolder>  {
+public class StepsCursorAdapterOld extends RecyclerView.Adapter<StepsCursorAdapterOld.StepsCursorViewHolder>  {
 
     Cursor mCursor;
     Context mContext;
 
-    public StepsCursorAdapter(Context context) {
+    public StepsCursorAdapterOld(Context context) {
         mContext = context;
     }
 
     @Override
-    public StepsCursorAdapter.StepsCursorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StepsCursorAdapterOld.StepsCursorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View stepsHolder = LayoutInflater.from(mContext).inflate(R.layout.step_item, parent, false);
         return new StepsCursorViewHolder(stepsHolder);
     }
 
     @Override
-    public void onBindViewHolder(StepsCursorAdapter.StepsCursorViewHolder holder, int position) {
+    public void onBindViewHolder(StepsCursorAdapterOld.StepsCursorViewHolder holder, int position) {
         mCursor.moveToPosition(position);
 
         // TODO case(match){

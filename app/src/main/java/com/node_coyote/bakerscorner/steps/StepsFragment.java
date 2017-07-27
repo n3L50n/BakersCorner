@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.exoplayer2.ExoPlayer;
 import com.node_coyote.bakerscorner.R;
 
 import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
@@ -77,7 +76,7 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View stepsContainer = inflater.inflate(R.layout.fragment_steps, container, false);
+        View stepsContainer = inflater.inflate(R.layout.content_recipe_detail, container, false);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -89,7 +88,7 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
 
         mAdapter = new StepsCursorAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        RecyclerView stepRecycler = (RecyclerView) stepsContainer.findViewById(R.id.steps_recycler_view);
+        RecyclerView stepRecycler = (RecyclerView) stepsContainer.findViewById(R.id.steps_detail_recycler_view);
         stepRecycler.setAdapter(mAdapter);
         stepRecycler.setLayoutManager(manager);
         getLoaderManager().initLoader(STEPS_LOADER, null, this);

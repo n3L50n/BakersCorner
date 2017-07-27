@@ -50,12 +50,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".recipes.RecipeDetailActivityOld">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".recipes.RecipeActivity" />
-        </activity>
-
         <receiver android:name=".widget.IngredientWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -69,7 +63,11 @@
         <activity
             android:name=".recipes.RecipeDetailActivity"
             android:label="@string/title_activity_recipe_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".recipes.RecipeActivity" />
+        </activity>
     </application>
 
 </manifest>
