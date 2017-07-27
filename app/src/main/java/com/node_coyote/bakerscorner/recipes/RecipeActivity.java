@@ -172,7 +172,7 @@ public class RecipeActivity extends AppCompatActivity
         String og = recipeUri.toString();
         String ng = og.substring(55);
         Integer lg = Integer.parseInt(ng);
-        Intent intent = new Intent(this, RecipeDetailActivity.class);
+        Intent intent = new Intent(this, RecipeDetailActivityOld.class);
         intent.setData(recipeUri);
         startActivity(intent);
 

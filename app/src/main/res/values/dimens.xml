@@ -12,5 +12,6 @@
 
     <dimen name="no_connection_margin_left">64dp</dimen>
     <dimen name="no_connection_margin_right">64dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

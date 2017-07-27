@@ -55,6 +55,10 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
     public void onBindViewHolder(StepsCursorAdapter.StepsCursorViewHolder holder, int position) {
         mCursor.moveToPosition(position);
 
+        // TODO case(match){
+        // TODO contains "Text" && "Url" image visible play, video visible,
+        // TODO contains "text" !& "url, image invisible, play video invisible
+
         int descriptionColumnIndex = mCursor.getColumnIndex(StepEntry.COLUMN_DESCRIPTION);
         String description = mCursor.getString(descriptionColumnIndex);
 

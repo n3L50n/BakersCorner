@@ -12,10 +12,12 @@
 
     <string name="ingredients_title">Ingredients</string>
     <string name="steps_title">Steps</string>
+    <string name="play_video">Play Video</string>
 
     <string name="steps_thumbnail_content_description">An image </string>
 
     <string name="appwidget_text">Bakers Corner</string>
     <string name="add_widget">Add widget</string>
+    <string name="title_activity_recipe_detail">RecipeDetailActivity</string>
 
 </resources>

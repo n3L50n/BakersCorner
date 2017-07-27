@@ -1,11 +1,11 @@
 package com.node_coyote.bakerscorner.recipes;
 
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -96,6 +96,15 @@ public class RecipeCursorAdapter extends RecyclerView.Adapter<RecipeCursorAdapte
         @Override
         public void onClick(View recipeView) {
 
+            if (Build.VERSION.SDK_INT >= 21
+                    && recipeView.getElevation() == 0.00f
+                    && recipeView.getTranslationZ() == 0.00f) {
+                recipeView.setTranslationZ(8.00f);
+                recipeView.setElevation(8.00f);
+            }
+            // TODO onPressed.
+            // TODO shadow goes back down.
+
             int adapterPosition = getAdapterPosition();
             Bundle bundle = new Bundle();
             mCursor.moveToPosition(adapterPosition);
@@ -119,7 +128,7 @@ public class RecipeCursorAdapter extends RecyclerView.Adapter<RecipeCursorAdapte
             bundle.putLong(ROW_ID_KEY, rowId);
 
             // Go to our ViewPager with 2 fragments; Ingredients and Steps
-            Intent intent = new Intent( recipeView.getContext(), RecipeDetailActivity.class);
+            Intent intent = new Intent( recipeView.getContext(), RecipeDetailActivityOld.class);
             intent.putExtras(bundle);
             recipeView.getContext().startActivity(intent);
         }
