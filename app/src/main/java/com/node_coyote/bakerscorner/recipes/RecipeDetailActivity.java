@@ -1,11 +1,14 @@
 package com.node_coyote.bakerscorner.recipes;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.steps.StepsCursorAdapter;
@@ -27,8 +30,22 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        // TODO grab real title
-        toolbar.setTitle("Brownies");
+        toolbar.setTitle("Ingredients");
+        if (Build.VERSION.SDK_INT >= 21) {
+            toolbar.setTranslationZ(2.00f);
+            toolbar.setElevation(2.00f);
+        }
+
+        View mUpButton = findViewById(R.id.action_up);
+        mUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+            }
+        });
+
+        //TODO on back and on up button pressed. must reload cursor data into recipeActivity
+
         StepsFragment stepsFragment = new StepsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

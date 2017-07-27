@@ -14,4 +14,7 @@
     <dimen name="no_connection_margin_right">64dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="collapsing_toolbar_height">125dp</dimen>
+    <dimen name="collapsing_toolbar_expanded_title_margin_start">72dp</dimen>
+
 </resources>

@@ -8,4 +8,5 @@
     <color name="transparent">#00000000</color>
     <color name="widget_recipe_name_text_color">#f5f5f5</color>
     <color name="play_video_text_color">#000</color>
+    <color name="recipe_detail_title_color">#000</color>
 </resources>

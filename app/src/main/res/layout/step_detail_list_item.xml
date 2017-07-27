@@ -6,9 +6,11 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:id="@+id/step_detail_list_item_image_view"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:src="@drawable/steps"
         android:visibility="visible" />
 
@@ -19,6 +21,8 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/step_detail_list_item_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
