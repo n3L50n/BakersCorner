@@ -4,6 +4,7 @@
     <string name="recipe_image_content_description">An image of the food item to be made in the recipe.</string>
     <string name="ingredient_image_content_description">An image of the eggs, flour, and sugar</string>
     <string name="steps_image_content_description">An image of a notepad with a checkmark and a pencil</string>
+    <string name="up_button_content_description">Navigate up</string>
     <string name="recipe_title_tool_text">Nutella</string>
     <string name="recipe_ingredients_button_text">Ingredients</string>
     <string name="recipe_steps_button_text">Let\'s Make it!</string>

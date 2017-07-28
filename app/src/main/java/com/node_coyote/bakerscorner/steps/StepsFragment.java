@@ -79,6 +79,10 @@ public class StepsFragment extends Fragment implements LoaderManager.LoaderCallb
         View stepsContainer = inflater.inflate(R.layout.content_recipe_detail, container, false);
 
         Bundle bundle = getActivity().getIntent().getExtras();
+
+        // TODO does this work?
+        onSaveInstanceState(bundle);
+
         if (bundle != null) {
             long rowId = bundle.getLong(ROW_ID_KEY);
             String recipeName = bundle.getString(RECIPE_NAME_KEY);

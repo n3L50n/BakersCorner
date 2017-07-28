@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.steps.StepsCursorAdapter;
@@ -29,6 +30,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
+
 
         toolbar.setTitle("Ingredients");
         if (Build.VERSION.SDK_INT >= 21) {
