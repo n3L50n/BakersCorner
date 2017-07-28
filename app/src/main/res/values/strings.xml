@@ -20,5 +20,6 @@
     <string name="appwidget_text">Bakers Corner</string>
     <string name="add_widget">Add widget</string>
     <string name="title_activity_recipe_detail">RecipeDetailActivity</string>
+    <string name="title_activity_steps_player">StepsPlayerActivity</string>
 
 </resources>

@@ -22,6 +22,21 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".recipes.RecipeDetailActivity"
+            android:label="@string/title_activity_recipe_detail"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".recipes.RecipeActivity" />
+        </activity>
+
+        <activity
+            android:name=".steps.StepsPlayerActivity"
+            android:label="@string/title_activity_steps_player"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
         <service android:name=".widget.IngredientWidgetService" />
         <service
             android:name=".widget.IngredientRemoteViewsService"
@@ -60,14 +75,7 @@
                 android:resource="@xml/recipe_widget_info" />
         </receiver>
 
-        <activity
-            android:name=".recipes.RecipeDetailActivity"
-            android:label="@string/title_activity_recipe_detail"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".recipes.RecipeActivity" />
-        </activity>
+
     </application>
 
 </manifest>

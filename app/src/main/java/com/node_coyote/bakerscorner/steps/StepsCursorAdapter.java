@@ -1,34 +1,24 @@
 package com.node_coyote.bakerscorner.steps;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.LoadControl;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
 import com.node_coyote.bakerscorner.R;
+import com.node_coyote.bakerscorner.recipes.RecipeDetailActivity;
 import com.node_coyote.bakerscorner.steps.StepContract.StepEntry;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +42,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
     }
 
     @Override
-    public void onBindViewHolder(StepsCursorAdapter.StepsCursorViewHolder holder, int position) {
+    public void onBindViewHolder(final StepsCursorAdapter.StepsCursorViewHolder holder, int position) {
         mCursor.moveToPosition(position);
 
         // TODO case(match){
@@ -73,7 +63,16 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
             holder.mThumbnailView.setVisibility(View.VISIBLE);
         }
 
+
         holder.mDescriptionView.setText(description);
+
+        holder.mPlayVideoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext.getApplicationContext(), StepsPlayerActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 
 //        if (!video.isEmpty() || video.length() != 0) {
 //            holder.initializePlayer(Uri.parse(video));
@@ -98,6 +97,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
 
         final TextView mDescriptionView;
         final ImageView mThumbnailView;
+        final Button mPlayVideoButton;
 //        final SimpleExoPlayerView mExoPlayerView;
 //        SimpleExoPlayer mExoPlayer;
 
@@ -106,6 +106,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
 //            mExoPlayerView = (SimpleExoPlayerView) itemView.findViewById(R.id.recipe_exo_player);
             mThumbnailView = (ImageView) itemView.findViewById(R.id.step_detail_list_item_image_view);
             mDescriptionView = (TextView) itemView.findViewById(R.id.step_detail_list_item_text_view);
+            mPlayVideoButton = (Button) itemView.findViewById(R.id.step_detail_list_item_play_button);
 //            mExoPlayer = null;
         }
 

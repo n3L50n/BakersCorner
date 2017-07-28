@@ -53,6 +53,7 @@ public class IngredientsFragment extends Fragment implements LoaderManager.Loade
         ingredientsList.setLayoutManager(manager);
         ingredientsList.setAdapter(mIngredientAdapter);
         getLoaderManager().initLoader(INGREDIENT_LOADER, null, this);
+
         return ingredientsView;
     }
 
