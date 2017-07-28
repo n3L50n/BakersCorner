@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".recipes.RecipeActivity"
             android:launchMode="singleTop">
@@ -35,9 +36,13 @@
             android:name=".steps.StepsPlayerActivity"
             android:label="@string/title_activity_steps_player"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".recipes.RecipeDetailActivity" />
         </activity>
 
         <service android:name=".widget.IngredientWidgetService" />
+
         <service
             android:name=".widget.IngredientRemoteViewsService"
             android:enabled="true"
