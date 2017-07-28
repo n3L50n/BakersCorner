@@ -47,7 +47,7 @@ public class StepsCursorAdapterOld extends RecyclerView.Adapter<StepsCursorAdapt
 
     @Override
     public StepsCursorAdapterOld.StepsCursorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View stepsHolder = LayoutInflater.from(mContext).inflate(R.layout.step_item, parent, false);
+        View stepsHolder = LayoutInflater.from(mContext).inflate(R.layout.fragment_step_player, parent, false);
         return new StepsCursorViewHolder(stepsHolder);
     }
 

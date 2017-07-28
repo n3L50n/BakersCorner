@@ -12,11 +12,14 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_collapsing_start_height"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/collapsing_toolbar_height"
+            app:collapsedTitleGravity="center"
+            app:expandedTitleGravity="bottom"
             app:expandedTitleMarginStart="@dimen/collapsing_toolbar_expanded_title_margin_start"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -50,6 +53,15 @@
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="@string/ingredients_title"
+            android:textColor="#555"
+            android:textSize="18sp" />
 
     </android.support.design.widget.AppBarLayout>
 

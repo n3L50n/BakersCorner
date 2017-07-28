@@ -2,17 +2,22 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="horizontal"
+    android:background="#efe1c7"
+    android:clipChildren="true"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorAccent" />
+        android:background="#494949" />
 
     <TextView
         android:id="@+id/ingredient_text_view"
-        android:layout_width="250dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
@@ -23,8 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:textColor="@color/colorPrimaryDark" />
+        android:layout_marginRight="48dp"/>
 
     <TextView
         android:id="@+id/measure_text_view"

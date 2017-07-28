@@ -2,6 +2,7 @@ package com.node_coyote.bakerscorner.recipes;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +26,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             toolbar.setTranslationZ(2.00f);
             toolbar.setElevation(2.00f);
         }
-
+        
         View mUpButton = findViewById(R.id.action_up);
         mUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +44,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .commit();
 
         IngredientsFragment ingredientsFragment = new IngredientsFragment();
-        FragmentManager ingredientFragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(R.id.ingredients_container, ingredientsFragment)
                 .commit();

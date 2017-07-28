@@ -6,14 +6,23 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:contentDescription="@string/steps_image_content_description"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:id="@+id/step_detail_list_item_image_view"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:contentDescription="@string/steps_image_content_description"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:src="@drawable/steps"
         android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/step_thumbnail"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/steps_thumbnail_content_description"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/step_text_container"
@@ -22,19 +31,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/step_detail_list_item_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:text="@string/ingredient_image_content_description" />
 
         <Button
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/step_detail_list_item_play_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@color/transparent"
             android:text="@string/play_video"
             android:textColor="@color/play_video_text_color"
