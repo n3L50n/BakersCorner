@@ -89,7 +89,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
         return mCursor.getCount();
     }
 
-    void swapStepCursor(Cursor newCursor) {
+    public void swapStepCursor(Cursor newCursor) {
         mCursor = newCursor;
         notifyDataSetChanged();
     }

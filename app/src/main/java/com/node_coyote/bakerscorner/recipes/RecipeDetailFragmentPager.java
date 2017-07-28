@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.node_coyote.bakerscorner.R;
 import com.node_coyote.bakerscorner.ingredients.IngredientsFragment;
-import com.node_coyote.bakerscorner.steps.StepsFragment;
+import com.node_coyote.bakerscorner.steps.StepsListFragment;
 
 /**
  * Created by node_coyote on 6/22/17.
@@ -28,7 +28,7 @@ public class RecipeDetailFragmentPager extends FragmentPagerAdapter {
             case 0:
                 return new IngredientsFragment();
             case 1:
-                return new StepsFragment();
+                return new StepsListFragment();
             default:
                 return new IngredientsFragment();
         }

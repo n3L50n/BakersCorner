@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.node_coyote.bakerscorner.recipes.RecipeDetailActivity">
 
-    <include layout="@layout/content_recipe_detail" />
+    <include layout="@layout/fragment_steps_list" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,8 @@
             app:expandedTitleMarginStart="@dimen/collapsing_toolbar_expanded_title_margin_start"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <include layout="@layout/fragment_ingredients" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -31,18 +33,18 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <ImageButton
-                    android:contentDescription="@string/up_button_content_description"
                     android:id="@+id/action_up"
                     android:layout_width="56dp"
                     android:layout_height="?actionBarSize"
                     android:background="?selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/up_button_content_description"
                     android:src="@drawable/ic_arrow_back"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
                 <ImageView
-                    android:contentDescription="@string/recipe_image_content_description"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:contentDescription="@string/recipe_image_content_description"
                     android:src="@drawable/bakers_corner_logo" />
 
             </android.support.v7.widget.Toolbar>
@@ -50,6 +52,5 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>
