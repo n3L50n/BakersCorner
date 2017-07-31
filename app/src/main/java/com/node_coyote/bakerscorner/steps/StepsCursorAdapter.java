@@ -3,6 +3,7 @@ package com.node_coyote.bakerscorner.steps;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
         String thumbnail = mCursor.getString(thumbnailColumnIndex);
 
         int videoColumnIndex = mCursor.getColumnIndex(StepEntry.COLUMN_VIDEO_URL);
-        String video = mCursor.getString(videoColumnIndex);
+        final String video = mCursor.getString(videoColumnIndex);
 
         if (!thumbnail.isEmpty() && thumbnail.length() != 0) {
             Picasso.with(holder.mThumbnailView.getContext()).load(thumbnail).into(holder.mThumbnailView);
@@ -60,13 +61,19 @@ public class StepsCursorAdapter extends RecyclerView.Adapter<StepsCursorAdapter.
             holder.mDescriptionView.setText(description);
         }
 
-        holder.mPlayVideoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext.getApplicationContext(), StepsPlayerActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
+        if (!TextUtils.isEmpty(video)) {
+            holder.mPlayVideoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext.getApplicationContext(), StepsPlayerActivity.class);
+                    intent.setData(Uri.parse(video));
+                    mContext.startActivity(intent);
+                }
+            });
+        } else {
+            holder.mPlayVideoButton.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

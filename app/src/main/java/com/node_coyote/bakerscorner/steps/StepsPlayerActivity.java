@@ -45,6 +45,9 @@ public class StepsPlayerActivity extends AppCompatActivity implements ExoPlayer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_step_player);
         ButterKnife.bind(this);
+        mContext = getApplicationContext();
+        Uri u = getIntent().getData();
+        initializePlayer(u);
     }
 
     /**
