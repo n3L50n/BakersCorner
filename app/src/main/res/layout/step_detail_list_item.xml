@@ -15,15 +15,6 @@
         android:src="@drawable/steps"
         android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/step_thumbnail"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:contentDescription="@string/steps_thumbnail_content_description"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/step_text_container"
         android:layout_width="wrap_content"
