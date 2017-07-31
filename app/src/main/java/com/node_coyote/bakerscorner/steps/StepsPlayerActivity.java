@@ -63,8 +63,7 @@ public class StepsPlayerActivity extends AppCompatActivity implements ExoPlayer.
             mExoPlayer.addListener(this);
 
             // Prepare the MediaSource.
-            // TODO WTF
-            String userAgent = Util.getUserAgent(mContext, "WTF");
+            String userAgent = Util.getUserAgent(mContext, "agent");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     mContext, userAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
